@@ -1,5 +1,6 @@
 var GameFacade = function() {
-    var mSelf = this;    
+    var mSelf = this;
+    var mLoad = null;
     var mWorld = null;
     var mPlayer = null;    
     var mStars = null;
