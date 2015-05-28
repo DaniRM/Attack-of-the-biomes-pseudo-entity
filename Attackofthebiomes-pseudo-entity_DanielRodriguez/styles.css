@@ -1,0 +1,10 @@
+ #mainContent {
+    margin: 5em 22.5%;
+    border: 10px solid;
+    width: 800px;
+}
+        
+body {
+    background-image: url("assets/fondo.jpg");
+    background-repeat: no-repeat;
+}
