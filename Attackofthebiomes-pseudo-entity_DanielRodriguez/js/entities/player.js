@@ -4,6 +4,10 @@ var Player = function(worldReference) {
     var mCursor = null;
     var mListeners = [];
     
+    this.getPhysicsReference = function() {
+        return mSprite;  
+    };
+    
     this.update = function() {
         phaser.physics.arcade.collide(mSprite, mWorldReference);
         
@@ -45,7 +49,7 @@ var Player = function(worldReference) {
     };
     
     var onPressRight = function() {
-        mSprite.body.velocity.x = 150;
+        mSprite.body.velocity.x = 500;
         mSprite.animations.play('right');
     };
     

@@ -16,6 +16,9 @@ var phaser = new Phaser.Game(
             phaser.load.image('desert1', 'assets/desert1.png');
             phaser.load.image('desert2', 'assets/desert2.png');
             phaser.load.spritesheet('player', 'assets/player2.png', 20, 20);
+            phaser.load.image('enemy', 'assets/enemy.png');
+                            phaser.load.image('botonElegirJugador','assets/botonElegirJugador.png');
+            phaser.load.image('bullet','assets/bullet1.png');
            
         }, 
         create: function() {
