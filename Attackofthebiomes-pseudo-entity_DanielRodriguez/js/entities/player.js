@@ -63,7 +63,7 @@ var Player = function(worldReference) {
     };
     
     (function() {
-        mSprite = phaser.add.sprite(32, phaser.world.height - 150, 'player');    
+        mSprite = phaser.add.sprite(32, phaser.world.height - 150, phaser.global.playerInformation);    
         mSprite.animations.add('right', [1, 2], 10, true);
         mSprite.animations.add('left', [3,4], 10, true);
         phaser.camera.follow(mSprite);

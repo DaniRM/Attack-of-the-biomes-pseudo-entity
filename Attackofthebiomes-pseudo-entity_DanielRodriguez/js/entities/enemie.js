@@ -12,6 +12,10 @@ var SimpleEnemies = function(worldReference, playerReference) {
     var vx = Math.random()*(maxSpeed - minSpeed+1)-minSpeed;
     var vy = Math.random()*(maxSpeed - minSpeed+1)-minSpeed;
     
+    this.getPhysicsReference = function() {
+        return mEnemyGroup;  
+    };
+    
     this.update = function() {
         phaser.physics.arcade.collide(mEnemyGroup, mWorldReference);
         phaser.physics.arcade.collide(mSprite, mEnemy, killPlayer, null, this);
