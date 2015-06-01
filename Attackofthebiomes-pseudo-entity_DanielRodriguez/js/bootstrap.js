@@ -7,7 +7,7 @@ var phaser = new Phaser.Game(
     { 
         preload: function() {
             //Tilemap and Tilesets for the map
-            phaser.load.tilemap('desierto', 'assets/desert.json', null, Phaser.Tilemap.TILED_JSON);
+            phaser.load.tilemap('desierto', 'assets/desert2.json', null, Phaser.Tilemap.TILED_JSON);
             phaser.load.image('menuBackground', 'assets/fondo_mainmenu.jpg');
             phaser.load.image('desert', 'assets/desert.png');
             phaser.load.image('desert1', 'assets/desert1.png');
@@ -17,12 +17,11 @@ var phaser = new Phaser.Game(
             phaser.load.image('enemy', 'assets/enemy.png');
             phaser.load.image('botonElegirJugador','assets/botonElegirJugador.png');
             phaser.load.image('bullet','assets/bullet1.png');
+            phaser.load.image('healthbar','assets/healthbar.png');
+            phaser.load.image('manabar','assets/manabar.png');
            
         }, 
         create: function() {
-            phaser.global = {
-                playerInformation: null
-            };
             phaser.state.add('menu', MenuState);            
             phaser.state.add('game', GameState);
             phaser.state.start('menu');

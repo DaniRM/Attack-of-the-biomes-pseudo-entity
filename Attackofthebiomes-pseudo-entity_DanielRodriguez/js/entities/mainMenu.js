@@ -22,13 +22,21 @@ var MainMenu = function() {
     };
     
     var aldinElegido = function(){
-        phaser.global.playerInformation = 'player';
-        phaser.state.start('game');
+        var parametersToSend = {
+            'health': 100,
+            'mana': 100,
+            'icon': 'player'
+        };
+        phaser.state.start('game',true, false, parametersToSend);
     };
     
     var arqueroElegido = function(){
-        phaser.global.playerInformation = 'player1';
-        phaser.state.start('game');
+        var parametersToSend = {
+            'health': 80,
+            'mana': 80,
+            'icon': 'player1'
+        };
+        phaser.state.start('game',true, false, parametersToSend);
     };
     
     

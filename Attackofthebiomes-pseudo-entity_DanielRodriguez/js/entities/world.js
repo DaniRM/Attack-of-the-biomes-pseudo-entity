@@ -23,7 +23,7 @@ var World = function() {
     var createLayer = function() {
          mLayer = mMap.createLayer('desierto');
          mLayer.resizeWorld();
-         mMap.setCollisionBetween(7,2008);  
+         mMap.setCollisionBetween(7,2000);  
     };
     
     var enablePhysics = function() {
