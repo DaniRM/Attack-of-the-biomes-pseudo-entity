@@ -22,7 +22,7 @@ var Weapon = function(player, worldReference, enemieReference) {
     this.update = function() {
         mWeaponGroup.forEachAlive(function(weapon){
             mEnemieReference.forEachAlive(function(enemy){
-                phaser.physics.arcade.overlap(mWeaponGroup, mEnemieReference, enemyDie, null, this);
+                phaser.physics.arcade.overlap(mWeapon, mEnemieReference, enemyDie, null, this);
             },this);
         },this);
         
@@ -34,9 +34,14 @@ var Weapon = function(player, worldReference, enemieReference) {
         }
     };
     
-    var enemyDie = function(enemy, weapon){ 
-        enemy.kill();
-        weapon.kill();
+    var enemyDie = function(weapon, enemy){
+         enemy.health -= 1;
+         if(enemy.health <= 0)
+         {
+            enemy.kill();
+             enemy.healthbar.kill();
+         }
+         weapon.kill();
     };
     
      var createWeapons = function(){ 
