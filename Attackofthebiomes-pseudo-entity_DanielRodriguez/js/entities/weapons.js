@@ -1,8 +1,9 @@
-var Weapon = function(player, worldReference, enemieReference) {
+var Weapon = function(player, worldReference, enemieReference, bigEnemyReference) {
     var mWeaponGroup = null;
     var mWeapon = [];
     var mWorldReference = worldReference;
     var mEnemieReference = enemieReference;
+    var mBigEnemyReference = bigEnemyReference;
     var weapon = null;
     var enemy = null;
     var mPlayer = player;
@@ -25,7 +26,7 @@ var Weapon = function(player, worldReference, enemieReference) {
                 phaser.physics.arcade.overlap(mWeapon, mEnemieReference, enemyDie, null, this);
             },this);
         },this);
-        
+        phaser.physics.arcade.overlap(mWeapon, mBigEnemyReference, bigEnemyDie, null, this);
         phaser.physics.arcade.collide(mWeaponGroup, mWorldReference, weaponDie, null, this);
         
         if(mCursor.isDown)
@@ -34,11 +35,22 @@ var Weapon = function(player, worldReference, enemieReference) {
         }
     };
     
+    var bigEnemyDie = function(weapon, enemy){
+        
+        enemy.health -= 3;
+        if(enemy.health <= 0)
+         {
+             enemy.kill();
+             enemy.healthbar.kill();
+         }
+         weapon.kill();
+    };
+    
     var enemyDie = function(weapon, enemy){
          enemy.health -= 1;
          if(enemy.health <= 0)
          {
-            enemy.kill();
+             enemy.kill();
              enemy.healthbar.kill();
          }
          weapon.kill();

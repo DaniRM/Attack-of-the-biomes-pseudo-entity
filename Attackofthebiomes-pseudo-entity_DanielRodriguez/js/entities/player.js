@@ -29,7 +29,6 @@ var Player = function(worldReference, playerParameters) {
         
         if(mSprite.health <= 0)
         {
-            console.log("PLAYER LOST"); 
             mSprite.kill();
             mSprite.healthbar.kill();
             mSprite.manabar.kill();

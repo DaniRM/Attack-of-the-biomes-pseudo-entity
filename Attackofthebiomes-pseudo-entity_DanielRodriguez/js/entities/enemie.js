@@ -1,11 +1,11 @@
-var Enemies = function(worldReference, playerReference) {
+var NormalEnemies = function(worldReference, playerReference) {
     var mEnemyGroup = null;
     var mEnemy = [];
     var enemy = null;
     var mWorldReference = worldReference;
     var mSprite = playerReference;
-    var totalEnemies = 15;
-    var posX = [560,830,1212,1550,1700,2115,2540,2685,2835,3150,3300,3450,3600,4062,4677];
+    var totalEnemies = 14;
+    var posX = [560,830,1212,1550,1700,2115,2540,2685,2835,3150,3300,3450,3600,4062];
     
     
     this.getPhysicsReference = function() {
