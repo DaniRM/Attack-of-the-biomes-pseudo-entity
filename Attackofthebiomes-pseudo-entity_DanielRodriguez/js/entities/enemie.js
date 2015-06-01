@@ -31,7 +31,7 @@ var Enemies = function(worldReference, playerReference) {
         enemy.body.bounce.x = 1;
         enemy.body.gravity.y = 300;
         enemy.body.collideWorldBounds = true;
-        enemy.body.velocity.x = 100;
+        enemy.body.velocity.x = 50;
         enemy.body.velocity.y = 100;
         enemy.scale.setTo(1,1.5);
         enemy.anchor.setTo(0.5, 1);

@@ -60,8 +60,6 @@ var Weapon = function(player, worldReference, enemieReference) {
         weapon.body.outOfBoundsKill = true;
         weapon.body.velocity.x = vx;
         weapon.checkWorldBounds = true;
-        weaponTime = phaser.time.now + 500;  
-       
     };
      
     (function() {

@@ -6,6 +6,7 @@ var GameState = function() {
     var mPlayer = null;
     var mEnemies = null;
     var mWeapon = null;
+    var mEnemieWeapon = null;
     
     this.init = function(playerParameters) {
         return player = playerParameters;
@@ -18,6 +19,7 @@ var GameState = function() {
         mPlayer = new Player(mWorld.getPhysicsReference(), player);
         mEnemies = new Enemies(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference());
         mWeapon = new Weapon(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference());
+        mEnemieWeapon = new EnemieWeapon(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference());
 
         mPlayer.registerListener(mSelf);
         mWeapon.registerListener(mSelf2);
@@ -27,6 +29,7 @@ var GameState = function() {
         mEnemies.update();
         mPlayer.update();
         mWeapon.update();
+        mEnemieWeapon.update();
     };
     
     var enablePhysics = function() {
