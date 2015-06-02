@@ -1,3 +1,4 @@
+//Class World where we create the map
 var World = function() {
     var mMap = null;
     var mLayer = null;
@@ -28,7 +29,6 @@ var World = function() {
     
     var enablePhysics = function() {
        phaser.physics.arcade.enable(mLayer);
-       
     };
     
     // Constructor

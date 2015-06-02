@@ -1,10 +1,10 @@
-var bigEnemyWeapon = function(playerReference, worldReference, bigEnemyReference) {
+var EnemyWeapon = function(playerReference, worldReference, enemyReference) {
     //References
     var mWorldReference = worldReference;
-    var mBigEnemyReference = bigEnemyReference;
+    var mEnemyReference = enemyReference;
     var mPlayerReference = playerReference;
     
-    //Big enemt weapon variables
+    //Enemy weapon variables
     var mEnemyWeaponsGroup = null;
     var mEnemyWeapon = [];
     var enemyWeapon = null;
@@ -14,10 +14,12 @@ var bigEnemyWeapon = function(playerReference, worldReference, bigEnemyReference
         //Physics
         phaser.physics.arcade.overlap(mEnemyWeapon, mPlayerReference, playerDie, null, this);
         phaser.physics.arcade.collide(mEnemyWeaponsGroup, mWorldReference, weaponDie, null, this);
-        createWeapons();
+        mEnemyReference.forEachAlive(function(enemy){
+            createWeapons(enemy);
+        },this);  
     };
     
-    //Function for when weapon collide with player
+    //Function for when weapon overlap with player
     var playerDie = function(enemyWeapon){ 
         mPlayerReference.health -= 3;
         enemyWeapon.kill();
@@ -28,18 +30,17 @@ var bigEnemyWeapon = function(playerReference, worldReference, bigEnemyReference
         enemyWeapon.kill();
     };
     
-    //Function for create big enemy weapons
-    var createWeapons = function(){ 
+    //Function for create weapons
+    var createWeapons = function(enemy){ 
             
         if(phaser.time.now > weaponTime)
         {
-            if (phaser.physics.arcade.distanceBetween(mBigEnemyReference, mPlayerReference) < 300)
+            if (phaser.physics.arcade.distanceBetween(enemy, mPlayerReference) < 300)
             {
-                enemyWeapon = mEnemyWeaponsGroup.create(mBigEnemyReference.x,mBigEnemyReference.y-20,'weapon');
-                
+                enemyWeapon = mEnemyWeaponsGroup.create(enemy.x,enemy.y-20,'weapon');
                 enablePhysics();
                 
-                enemyWeapon.rotation = phaser.physics.arcade.moveToObject(enemyWeapon, mPlayerReference, 200);
+                enemyWeapon.rotation = phaser.physics.arcade.moveToObject(enemyWeapon, mPlayerReference, 250);
                 
                 mEnemyWeapon.push(enemyWeapon); 
                 

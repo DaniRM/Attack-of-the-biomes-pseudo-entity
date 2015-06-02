@@ -1,43 +1,52 @@
-var Weapon = function(player, worldReference, enemieReference, bigEnemyReference) {
+var Weapon = function(playerReference, worldReference, enemyReference, bigEnemyReference) {
+    //References
+    var mWorldReference = worldReference;
+    var mEnemyReference = enemyReference;
+    var mBigEnemyReference = bigEnemyReference;
+    var mPlayerReference = playerReference;
+    
+    //Variable for weapons
     var mWeaponGroup = null;
     var mWeapon = [];
-    var mWorldReference = worldReference;
-    var mEnemieReference = enemieReference;
-    var mBigEnemyReference = bigEnemyReference;
     var weapon = null;
-    var enemy = null;
-    var mPlayer = player;
     var weaponTime = 300;
+    
+    //Cursor
     var mCursor = phaser.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    
+    //Listeners
     var mListeners = [];
     
-    var minSpeed = -75;
-    var maxSpeed = 75;
-    var vx = Math.random()*(maxSpeed - minSpeed+1)-minSpeed;
-    var vy = Math.random()*(maxSpeed - minSpeed+1)-minSpeed;
-    
+    //Listener
     this.registerListener = function(listener) {
         mListeners.push(listener);
     }
     
     this.update = function() {
+        //Physics
         mWeaponGroup.forEachAlive(function(weapon){
-            mEnemieReference.forEachAlive(function(enemy){
-                phaser.physics.arcade.overlap(mWeapon, mEnemieReference, enemyDie, null, this);
+            mEnemyReference.forEachAlive(function(enemy){
+                phaser.physics.arcade.overlap(mWeapon, mEnemyReference, enemyDie, null, this);
             },this);
         },this);
         phaser.physics.arcade.overlap(mWeapon, mBigEnemyReference, bigEnemyDie, null, this);
         phaser.physics.arcade.collide(mWeaponGroup, mWorldReference, weaponDie, null, this);
         
+        //Cursor
         if(mCursor.isDown)
         {
             createWeapons();
         }
     };
     
+    //Function for kill weapon when it collide with the world
+    var weaponDie = function(weapon){
+        weapon.kill();  
+    };
+    
+    //Function for kill weapon and big enemy when it hasn't life
     var bigEnemyDie = function(weapon, enemy){
-        
-        enemy.health -= 3;
+        enemy.health -= 1;
         if(enemy.health <= 0)
          {
              enemy.kill();
@@ -46,6 +55,7 @@ var Weapon = function(player, worldReference, enemieReference, bigEnemyReference
          weapon.kill();
     };
     
+    //Function for kill weapon and big enemy when it hasn't life
     var enemyDie = function(weapon, enemy){
          enemy.health -= 1;
          if(enemy.health <= 0)
@@ -56,26 +66,24 @@ var Weapon = function(player, worldReference, enemieReference, bigEnemyReference
          weapon.kill();
     };
     
-     var createWeapons = function(){ 
+    //Function for create weapons
+    var createWeapons = function(){ 
         if(phaser.time.now > weaponTime)
         {
-            var y = phaser.world.randomY;
-            weapon = mWeaponGroup.create(player.x,player.y,'bullet');
+            weapon = mWeaponGroup.create(mPlayerReference.x+40,mPlayerReference.y+20,'weapon');
                 
             enablePhysics();
+            
             mWeapon.push(weapon);
+            
             weaponTime = phaser.time.now + 200;       
         }      
     };
     
-    var weaponDie = function(weapon){
-        weapon.kill();  
-    };
-
     var enablePhysics = function() {  
         phaser.physics.arcade.enable(mWeapon);
         weapon.body.outOfBoundsKill = true;
-        weapon.body.velocity.x = vx;
+        weapon.body.velocity.x = 700;
         weapon.checkWorldBounds = true;
     };
      

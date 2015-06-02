@@ -1,9 +1,12 @@
-var NormalEnemies = function(worldReference, playerReference) {
+var NormalEnemy = function(worldReference, playerReference) {
+    //Reference
+    var mWorldReference = worldReference;
+    var mSprite = playerReference;
+    
+    //Enemy variables
     var mEnemyGroup = null;
     var mEnemy = [];
     var enemy = null;
-    var mWorldReference = worldReference;
-    var mSprite = playerReference;
     var totalEnemies = 14;
     var posX = [560,830,1212,1550,1700,2115,2540,2685,2835,3150,3300,3450,3600,4062];
     
@@ -12,8 +15,8 @@ var NormalEnemies = function(worldReference, playerReference) {
         return mEnemyGroup;  
     };
     
-    
     this.update = function() {
+        //Physics
         mEnemyGroup.forEachAlive(function(enemy){
             enemy.healthbar.x = enemy.x-40;
             enemy.healthbar.y = enemy.y-80;
@@ -23,18 +26,28 @@ var NormalEnemies = function(worldReference, playerReference) {
         phaser.physics.arcade.collide(mSprite, mEnemy, killPlayer, null, this);
     };
     
+    
+    var killPlayer = function()
+    {
+    };
+    
+    //Function for create enemies
     var createEnemies = function(){  
          for (var i = 0; i < totalEnemies; i++) {
-            var x = phaser.world.randomX;
+             
             enemy = mEnemyGroup.create(posX[i],450,'enemy');
-            enemy.healthbar = phaser.add.sprite(enemy.x-40,enemy.y-80,'enemyHealthbar');
-            enemy.maxHealth = 3;
-            enemy.health = 3;
+             
+            enemy.healthbar = phaser.add.sprite(enemy.x,enemy.y,'enemyHealthbar');
+            enemy.maxHealth = 8;
+            enemy.health = 8;
+             
             enablePhysics();
             
             mEnemy.push(enemy);
          }
     };
+    
+    //Physics
     var enablePhysics = function() {        
         phaser.physics.arcade.enable(mEnemy);
         enemy.body.bounce.x = 1;
@@ -42,18 +55,15 @@ var NormalEnemies = function(worldReference, playerReference) {
         enemy.body.collideWorldBounds = true;
         enemy.body.velocity.x = 50;
         enemy.body.velocity.y = 100;
-        enemy.scale.setTo(1.5,1.5);
+        enemy.scale.setTo(1,1);
         enemy.anchor.setTo(0.5, 1);
     };
     
-    var killPlayer = function()
-    {
-        playerReference.health=playerReference.health-3;
-    };
-    
     (function() {
+        //Enemy
        mEnemyGroup = phaser.add.group();
        mEnemyGroup.enableBody = true;
+        
        createEnemies();
     })();
 };
