@@ -16,7 +16,7 @@ var ManaPotion = function(worldReference, playerReference) {
     var posY = [450,450,450];
     
     //Cursor
-    var mCursor = phaser.input.keyboard.addKey(Phaser.Keyboard.K);
+    var mCursor = phaser.input.keyboard.addKey(Phaser.Keyboard.B);
     
     //Listener
     var mListeners = [];

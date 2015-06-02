@@ -15,8 +15,8 @@ var bigEnemy = function(worldReference, playerReference) {
     
     this.update = function() {
        //Physics
-        bigEnemy.healthbar.x = bigEnemy.x-40;
-        bigEnemy.healthbar.y = bigEnemy.y-80;
+        bigEnemy.healthbar.x = bigEnemy.x-50;
+        bigEnemy.healthbar.y = bigEnemy.y-120;
         bigEnemy.healthbar.width = (bigEnemy.health / bigEnemy.maxHealth) * 100;
    
         phaser.physics.arcade.collide(bigEnemy, mWorldReference);
@@ -36,15 +36,14 @@ var bigEnemy = function(worldReference, playerReference) {
         bigEnemy.body.collideWorldBounds = true;
         bigEnemy.body.velocity.x = 50;
         bigEnemy.body.velocity.y = 100;
-        bigEnemy.scale.setTo(1.5,1.5);
         bigEnemy.anchor.setTo(0.5, 1);
     };
     
     (function() {
-        bigEnemy = phaser.add.sprite(4677, phaser.world.height - 150, 'enemy');
-        bigEnemy.healthbar = phaser.add.sprite(bigEnemy.x-40,bigEnemy.y-80,'enemyHealthbar');
-        bigEnemy.maxHealth = 50;
-        bigEnemy.health = 50;
+        bigEnemy = phaser.add.sprite(4677, phaser.world.height - 150, 'desertBigEnemy');
+        bigEnemy.healthbar = phaser.add.sprite(bigEnemy.x-50,bigEnemy.y-120,'enemyHealthbar');
+        bigEnemy.maxHealth = 80;
+        bigEnemy.health = 80;
         
         enablePhysics();
     })();

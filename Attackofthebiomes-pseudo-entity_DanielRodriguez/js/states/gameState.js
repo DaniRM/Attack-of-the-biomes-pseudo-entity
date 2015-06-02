@@ -4,6 +4,7 @@ var GameState = function() {
     var mSelfWeapon = this;
     var mSelfLifePotion = this;
     var mSelfManaPotion = this;
+    var mSelfSuperHability = this;
     
     //Variables for create game
     var mWorld = null;   
@@ -15,6 +16,7 @@ var GameState = function() {
     var mBigEnemieWeapon = null;
     var mLifePotion = null;
     var mManaPotion = null;
+    var mSuperHability = null;
     
     //Init for get parameters from menu
     this.init = function(playerParameters) {
@@ -34,12 +36,14 @@ var GameState = function() {
         mWeapon = new Weapon(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mBigEnemy.getPhysicsReference());
         mLifePotion = new LifePotion(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference());
         mManaPotion = new ManaPotion(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference());
+        mSuperHability = new SuperHability(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mBigEnemy.getPhysicsReference());
         
         //Listeners
         mPlayer.registerListener(mSelfPlayer);
         mWeapon.registerListener(mSelfWeapon);
         mLifePotion.registerListener(mSelfLifePotion);
         mManaPotion.registerListener(mSelfManaPotion);
+        mSuperHability.registerListener(mSelfSuperHability);
     };
     
     this.update = function() {
@@ -51,6 +55,7 @@ var GameState = function() {
         mBigEnemieWeapon.update();
         mLifePotion.update();
         mManaPotion.update();
+        mSuperHability.update();
     };
     
     var enablePhysics = function() {

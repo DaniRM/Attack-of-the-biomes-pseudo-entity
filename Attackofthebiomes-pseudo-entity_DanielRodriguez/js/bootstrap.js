@@ -22,6 +22,7 @@ var phaser = new Phaser.Game(
             //Enemy
             phaser.load.image('enemy', 'assets/desert_scorpion.png');
             phaser.load.image('enemyHealthbar','assets/enemy_healthbar.png');
+            phaser.load.image('desertBigEnemy', 'assets/desertBigEnemy.png');
             
             //Menu
             phaser.load.image('menuBackground', 'assets/fondo_mainmenu.jpg');
@@ -37,6 +38,9 @@ var phaser = new Phaser.Game(
             
             //Mana Potions
             phaser.load.image('manapotion', 'assets/manaPotion.png');
+            
+            //Super Hability
+            phaser.load.image('superHability1', 'assets/superHability1.png');
            
            
         }, 

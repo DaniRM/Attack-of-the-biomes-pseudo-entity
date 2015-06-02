@@ -16,7 +16,7 @@ var LifePotion = function(worldReference, playerReference) {
     var posY = [190,450,450];
     
     //Cursor
-    var mCursor = phaser.input.keyboard.addKey(Phaser.Keyboard.L);
+    var mCursor = phaser.input.keyboard.addKey(Phaser.Keyboard.N);
     
     //Listener
     var mListeners = [];
