@@ -2,6 +2,7 @@ var Player = function(worldReference, playerParameters) {
     //References
     var mWorldReference = worldReference;
     
+    
     //Variables for player
     var mSprite = null;
     //health
@@ -27,6 +28,8 @@ var Player = function(worldReference, playerParameters) {
     };
     
     this.update = function() {
+        //console.log(mSprite.y);
+        //console.log(mSprite.x);
         //Physics player
         phaser.physics.arcade.collide(mSprite, mWorldReference);
         mSprite.body.velocity.x = 0;
@@ -72,7 +75,10 @@ var Player = function(worldReference, playerParameters) {
 
         if (mCursor.up.isDown)
         {
-            onPressUp();
+            if(mSprite.body.blocked.down)
+            {
+                onPressUp();
+            }
         }
     };
     
@@ -93,7 +99,7 @@ var Player = function(worldReference, playerParameters) {
     };
     
     var onPressUp = function() {
-        mSprite.body.velocity.y = -100;   
+        mSprite.body.velocity.y = -200; 
     };
         
     var onNoDirectionPressed = function() {
@@ -104,8 +110,7 @@ var Player = function(worldReference, playerParameters) {
     //Physics
     var enablePhysics = function() {        
         phaser.physics.arcade.enable(mSprite);
-        mSprite.body.bounce.y = 0.2;
-        mSprite.body.gravity.y = 300;
+        mSprite.body.gravity.y = 200;
         mSprite.body.collideWorldBounds = true;    
     };
     

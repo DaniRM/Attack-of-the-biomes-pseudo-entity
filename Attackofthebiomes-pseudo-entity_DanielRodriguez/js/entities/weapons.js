@@ -1,9 +1,10 @@
-var Weapon = function(playerReference, worldReference, enemyReference, bigEnemyReference) {
+var Weapon = function(playerReference, worldReference, enemyReference, bigEnemyReference, scoreReference) {
     //References
     var mWorldReference = worldReference;
     var mEnemyReference = enemyReference;
     var mBigEnemyReference = bigEnemyReference;
     var mPlayerReference = playerReference;
+    var mScoreReference = scoreReference;
     
     //Variable for weapons
     var mWeaponGroup = null;
@@ -51,8 +52,9 @@ var Weapon = function(playerReference, worldReference, enemyReference, bigEnemyR
          {
              enemy.kill();
              enemy.healthbar.kill();
+             mScoreReference.score+=50;
          }
-         weapon.kill();
+         weapon.kill(); 
     };
     
     //Function for kill weapon and big enemy when it hasn't life
@@ -62,6 +64,7 @@ var Weapon = function(playerReference, worldReference, enemyReference, bigEnemyR
          {
              enemy.kill();
              enemy.healthbar.kill();
+             mScoreReference.score+=8;
          }
          weapon.kill();
     };

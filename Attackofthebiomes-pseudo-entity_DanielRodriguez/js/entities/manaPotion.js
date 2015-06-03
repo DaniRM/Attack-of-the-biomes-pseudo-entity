@@ -1,7 +1,8 @@
-var ManaPotion = function(worldReference, playerReference) {
+var ManaPotion = function(worldReference, playerReference, scoreReference) {
     //References
     var mWorldReference = worldReference;
     var mPlayerReference = playerReference;
+    var mScoreReference = scoreReference;
     
     //Life Potion Variables
     var mManaPotionGroup = null;
@@ -48,6 +49,7 @@ var ManaPotion = function(worldReference, playerReference) {
     var addPotion = function(player, manapotion){
          quantityPotions++;
          manapotion.kill();
+         mScoreReference.score+=5;
     };
     
     //Function for when player want use one mana potion

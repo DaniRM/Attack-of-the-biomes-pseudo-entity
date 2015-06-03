@@ -1,7 +1,8 @@
-var LifePotion = function(worldReference, playerReference) {
+var LifePotion = function(worldReference, playerReference, scoreReference) {
     //References
     var mWorldReference = worldReference;
     var mPlayerReference = playerReference;
+    var mScoreReference = scoreReference;
     
     //Life Potion Variables
     var mLifePotionGroup = null;
@@ -48,6 +49,7 @@ var LifePotion = function(worldReference, playerReference) {
     var addPotion = function(player, lifepotion){
          quantityPotions++;
          lifepotion.kill();
+         mScoreReference.score+=5;
     };
     
     //Function for when player want use one health potion

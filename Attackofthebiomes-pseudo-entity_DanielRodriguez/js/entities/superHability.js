@@ -1,9 +1,10 @@
-var SuperHability = function(playerReference, worldReference, enemyReference, bigEnemyReference) {
+var SuperHability = function(playerReference, worldReference, enemyReference, bigEnemyReference, scoreReference) {
     //References
     var mWorldReference = worldReference;
     var mEnemyReference = enemyReference;
     var mBigEnemyReference = bigEnemyReference;
     var mPlayerReference = playerReference;
+    var mScoreReference = scoreReference;
     
     //Variable for weapons
     var mWeaponGroup = null;
@@ -56,6 +57,7 @@ var SuperHability = function(playerReference, worldReference, enemyReference, bi
          {
              enemy.kill();
              enemy.healthbar.kill();
+             mScoreReference.score+=50;
          }
          weapon.kill();
     };
@@ -67,6 +69,7 @@ var SuperHability = function(playerReference, worldReference, enemyReference, bi
          {
              enemy.kill();
              enemy.healthbar.kill();
+             mScoreReference.score+=8;
          }
          weapon.kill();
     };

@@ -41,7 +41,12 @@ var phaser = new Phaser.Game(
             
             //Super Hability
             phaser.load.image('superHability1', 'assets/superHability1.png');
-           
+            
+            //Platform
+            phaser.load.image('desertplatform', 'assets/desertplatform.png');
+            
+            //Score
+            phaser.load.image('score', 'assets/score.png');
            
         }, 
         create: function() {
