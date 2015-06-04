@@ -1,10 +1,4 @@
 var GameState = function() {
-    //Listeners
-    var mSelfPlayer = this;
-    var mSelfWeapon = this;
-    var mSelfLifePotion = this;
-    var mSelfManaPotion = this;
-    var mSelfSuperHability = this;
     
     //Variables for create game
     var mWorld = null;   
@@ -19,6 +13,7 @@ var GameState = function() {
     var mSuperHability = null;
     var mPlatform = null;
     var mScore = null;
+    var mCoin = null;
     
     //Init for get parameters from menu
     this.init = function(playerParameters) {
@@ -31,7 +26,8 @@ var GameState = function() {
         //Create game
         mWorld = new World(); 
         mScore = new Score();
-        mPlayer = new Player(mWorld.getPhysicsReference(), player);
+        mPlayer = new Player(mWorld.getPhysicsReference(), player, mScore.getPhysicsReference());
+        mCoin = new Coins(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference(), mScore.getPhysicsReference());
         mEnemies = new NormalEnemy(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference());
         mBigEnemy = new bigEnemy(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference());
         mEnemyWeapon = new EnemyWeapon(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference());
@@ -41,13 +37,6 @@ var GameState = function() {
         mManaPotion = new ManaPotion(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference(), mScore.getPhysicsReference());
         mSuperHability = new SuperHability(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mBigEnemy.getPhysicsReference(),  mScore.getPhysicsReference());
         mPlatform = new Platform(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference());
-      
-        //Listeners
-        mPlayer.registerListener(mSelfPlayer);
-        mWeapon.registerListener(mSelfWeapon);
-        mLifePotion.registerListener(mSelfLifePotion);
-        mManaPotion.registerListener(mSelfManaPotion);
-        mSuperHability.registerListener(mSelfSuperHability);
     };
     
     this.update = function() {
@@ -62,6 +51,7 @@ var GameState = function() {
         mManaPotion.update();
         mSuperHability.update();
         mPlatform.update();
+        mCoin.update();
     };
     
     var enablePhysics = function() {

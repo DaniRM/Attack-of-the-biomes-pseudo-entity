@@ -1,4 +1,6 @@
- #mainContent {
+@import url(http://fonts.googleapis.com/css?family=Geo); 
+
+#mainContent {
     margin: 5em 22.5%;
     border: 10px solid;
     width: 800px;

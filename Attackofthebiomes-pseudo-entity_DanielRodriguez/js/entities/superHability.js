@@ -16,14 +16,6 @@ var SuperHability = function(playerReference, worldReference, enemyReference, bi
     //Cursor
     var mCursor = phaser.input.keyboard.addKey(Phaser.Keyboard.M);
     
-    //Listeners
-    var mListeners = [];
-    
-    //Listener
-    this.registerListener = function(listener) {
-        mListeners.push(listener);
-    }
-    
     this.update = function() {
         //Physics
         mWeaponGroup.forEachAlive(function(weapon){

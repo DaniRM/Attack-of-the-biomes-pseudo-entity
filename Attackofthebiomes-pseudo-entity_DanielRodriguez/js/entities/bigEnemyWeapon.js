@@ -35,7 +35,7 @@ var bigEnemyWeapon = function(playerReference, worldReference, bigEnemyReference
         {
             if (phaser.physics.arcade.distanceBetween(mBigEnemyReference, mPlayerReference) < 300)
             {
-                enemyWeapon = mEnemyWeaponsGroup.create(mBigEnemyReference.x,mBigEnemyReference.y-20,'weapon');
+                enemyWeapon = mEnemyWeaponsGroup.create(mBigEnemyReference.x,mBigEnemyReference.y-20,'bullet');
                 
                 enablePhysics();
                 

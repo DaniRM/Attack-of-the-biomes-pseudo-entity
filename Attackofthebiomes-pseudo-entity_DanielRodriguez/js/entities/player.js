@@ -1,7 +1,7 @@
-var Player = function(worldReference, playerParameters) {
+var Player = function(worldReference, playerParameters, scoreReference) {
     //References
     var mWorldReference = worldReference;
-    
+    var mScoreReference = scoreReference;
     
     //Variables for player
     var mSprite = null;
@@ -19,17 +19,11 @@ var Player = function(worldReference, playerParameters) {
     //Cursor
     var mCursor = null;
     
-    //Listenere
-    var mListeners = [];
-    
-    
     this.getPhysicsReference = function() {
         return mSprite; 
     };
     
     this.update = function() {
-        //console.log(mSprite.y);
-        //console.log(mSprite.x);
         //Physics player
         phaser.physics.arcade.collide(mSprite, mWorldReference);
         mSprite.body.velocity.x = 0;
@@ -57,6 +51,8 @@ var Player = function(worldReference, playerParameters) {
             mSprite.manabar.kill();
             phaser.world.remove(mSprite.healthLabel);
             phaser.world.remove(mSprite.manaLabel);
+            var parametersToSend = mScoreReference.score;
+            phaser.state.start('final',true, false, parametersToSend);
         }
         
         //Cursors
@@ -81,11 +77,6 @@ var Player = function(worldReference, playerParameters) {
             }
         }
     };
-    
-    //Listener
-    this.registerListener = function(listener) {
-        mListeners.push(listener);
-    }
     
     //Functions for cursors
     var onPressLeft = function() {        
@@ -122,14 +113,14 @@ var Player = function(worldReference, playerParameters) {
         mSprite.healthbar = phaser.add.sprite(mSprite.x-25,mSprite.y-50,'healthbarPlayer');
         mSprite.maxHealth = playerParameters.health;
         mSprite.health = playerParameters.health;
-        mSprite.healthLabel = phaser.add.text(mSprite.x-20, mSprite.y-40,  mSprite.health +'/'+ mSprite.maxHealth, { font: '10px Geo', fill: '#ffffff' });
+        mSprite.healthLabel = phaser.add.text(mSprite.x-20, mSprite.y-40,  mSprite.health +'/'+ mSprite.maxHealth, { font: '16px Geo', fill: '#ffffff' });
         mSprite.healthLabel.anchor.setTo(0.5, 0.5);
         
         //Player mana
         mSprite.manabar = phaser.add.sprite(mSprite.x-25,mSprite.y-30,'manabarPlayer');
         mSprite.maxMana = playerParameters.mana;
         mSprite.mana = playerParameters.mana;
-        mSprite.manaLabel = phaser.add.text(mSprite.x-25, mSprite.y-20,  mSprite.mana +'/'+ mSprite.maxMana, { font: '10px Geo', fill: '#ffffff' });
+        mSprite.manaLabel = phaser.add.text(mSprite.x-25, mSprite.y-20,  mSprite.mana +'/'+ mSprite.maxMana, { font: '16px Geo', fill: '#ffffff' });
         mSprite.manaLabel.anchor.setTo(0.5, 0.5);
         
         //Animations

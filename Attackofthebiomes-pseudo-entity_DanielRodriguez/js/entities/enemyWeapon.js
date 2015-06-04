@@ -37,7 +37,7 @@ var EnemyWeapon = function(playerReference, worldReference, enemyReference) {
         {
             if (phaser.physics.arcade.distanceBetween(enemy, mPlayerReference) < 300)
             {
-                enemyWeapon = mEnemyWeaponsGroup.create(enemy.x,enemy.y-20,'weapon');
+                enemyWeapon = mEnemyWeaponsGroup.create(enemy.x,enemy.y-20,'bullet');
                 enablePhysics();
                 
                 enemyWeapon.rotation = phaser.physics.arcade.moveToObject(enemyWeapon, mPlayerReference, 250);

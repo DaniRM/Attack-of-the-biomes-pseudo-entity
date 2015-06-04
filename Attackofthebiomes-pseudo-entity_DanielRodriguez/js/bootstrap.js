@@ -13,6 +13,9 @@ var phaser = new Phaser.Game(
             phaser.load.image('desert1', 'assets/desert1.png');
             phaser.load.image('desert2', 'assets/desert2.png');
             
+            //Load
+            phaser.load.image('progressBar', 'assets/progressBar.png');
+            
             //Player
             phaser.load.spritesheet('player', 'assets/player2.png', 50, 50);
             phaser.load.spritesheet('player1', 'assets/player3.png', 50, 50);
@@ -31,7 +34,9 @@ var phaser = new Phaser.Game(
             phaser.load.image('buttonAldin','assets/aldinButton.png');
             
             //Weapons
-            phaser.load.image('weapon','assets/bullet1.png');
+            phaser.load.image('bullet','assets/bullet1.png');
+            phaser.load.image('weapon','assets/axe.png');
+            phaser.load.image('bulletmage','assets/bulletmage.png');
             
             //Health Potions
             phaser.load.image('lifepotion', 'assets/lifepotion.png');
@@ -47,12 +52,17 @@ var phaser = new Phaser.Game(
             
             //Score
             phaser.load.image('score', 'assets/score.png');
+            
+            //Coin
+            phaser.load.image('coin', 'assets/coin.png');
            
         }, 
         create: function() {
+            phaser.state.add('load', LoadState);
             phaser.state.add('menu', MenuState);            
             phaser.state.add('game', GameState);
-            phaser.state.start('menu');
+            phaser.state.add('final', FinalState);
+            phaser.state.start('load');
         }
     }
 );

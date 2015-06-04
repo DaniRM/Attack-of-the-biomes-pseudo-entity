@@ -15,13 +15,6 @@ var Weapon = function(playerReference, worldReference, enemyReference, bigEnemyR
     //Cursor
     var mCursor = phaser.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     
-    //Listeners
-    var mListeners = [];
-    
-    //Listener
-    this.registerListener = function(listener) {
-        mListeners.push(listener);
-    }
     
     this.update = function() {
         //Physics
@@ -53,6 +46,8 @@ var Weapon = function(playerReference, worldReference, enemyReference, bigEnemyR
              enemy.kill();
              enemy.healthbar.kill();
              mScoreReference.score+=50;
+             var parametersToSend = mScoreReference.score;
+             phaser.state.start('final',true, false, parametersToSend);
          }
          weapon.kill(); 
     };

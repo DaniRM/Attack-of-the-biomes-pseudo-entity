@@ -19,9 +19,6 @@ var LifePotion = function(worldReference, playerReference, scoreReference) {
     //Cursor
     var mCursor = phaser.input.keyboard.addKey(Phaser.Keyboard.N);
     
-    //Listener
-    var mListeners = [];
-    
     this.update = function() {
         //Update label
         labelPotions.text = quantityPotions;
@@ -39,12 +36,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference) {
         phaser.physics.arcade.collide(mLifePotionGroup, mWorldReference);
         phaser.physics.arcade.overlap(mPlayerReference, mLifePotion, addPotion, null, this);
     };
-    
-    //Listener
-    this.registerListener = function(listener) {
-        mListeners.push(listener);
-    }
-    
+
     //Function for when player take potion
     var addPotion = function(player, lifepotion){
          quantityPotions++;
