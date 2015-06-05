@@ -1,7 +1,8 @@
-var Platform = function(worldReference, playerReference) {
+var Platform = function(worldReference, playerReference, playerReference2, mode) {
     //References
     var mWorldReference = worldReference;
     var mPlayerReference = playerReference;
+    var mPlayerReference2 = playerReference2;
     
     //Life Potion Variables
     var mPlatformGroup = null;
@@ -15,11 +16,18 @@ var Platform = function(worldReference, playerReference) {
         //Physics
         phaser.physics.arcade.collide(mPlatformGroup, mWorldReference);
         phaser.physics.arcade.overlap(mPlayerReference, mPlatform, playerUP, null, this);
+        
+        if(mode == 1){
+            phaser.physics.arcade.overlap(mPlayerReference2, mPlatform, playerUP2, null, this);
+        }
     };
     
     //Function for when player take potion
     var playerUP = function(player, platform){
         mPlayerReference.body.velocity.y = -350; 
+    };
+    var playerUP2 = function(player, platform){
+        mPlayerReference2.body.velocity.y = -350; 
     };
     
     //Function for create manaPotions

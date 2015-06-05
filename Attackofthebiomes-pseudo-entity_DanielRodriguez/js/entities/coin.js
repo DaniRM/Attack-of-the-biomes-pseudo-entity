@@ -1,8 +1,9 @@
-var Coins = function(worldReference, playerReference, scoreReference) {
+var Coins = function(worldReference, playerReference, scoreReference, playerReference2, mode) {
     //Reference
     var mWorldReference = worldReference;
     var mPlayerReference = playerReference;
     var mScoreReference = scoreReference;
+    var mPlayerReference2 = playerReference2;
     
     //Enemy variables
     var mCoinGroup = null;
@@ -20,9 +21,18 @@ var Coins = function(worldReference, playerReference, scoreReference) {
         //Physics
         phaser.physics.arcade.collide(mCoinGroup, mWorldReference);
         phaser.physics.arcade.overlap(mPlayerReference, mCoin, upScore, null, this);
+        
+        if(mode == 1){
+            phaser.physics.arcade.overlap(mPlayerReference2, mCoin, upScore2, null, this);
+        }
     };
     
     var upScore = function(player, coin){
+        mScoreReference.score+=5;
+        coin.kill();
+    };
+    
+    var upScore2 = function(player, coin){
         mScoreReference.score+=5;
         coin.kill();
     };

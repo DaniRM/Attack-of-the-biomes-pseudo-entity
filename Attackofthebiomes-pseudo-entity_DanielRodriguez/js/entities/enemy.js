@@ -1,7 +1,8 @@
-var NormalEnemy = function(worldReference, playerReference) {
+var NormalEnemy = function(worldReference, playerReference, playerReference2, mode) {
     //Reference
     var mWorldReference = worldReference;
     var mSprite = playerReference;
+    var mSprite2 = playerReference2;
     
     //Enemy variables
     var mEnemyGroup = null;
@@ -24,10 +25,18 @@ var NormalEnemy = function(worldReference, playerReference) {
         },this);  
         phaser.physics.arcade.collide(mEnemyGroup, mWorldReference);
         phaser.physics.arcade.collide(mSprite, mEnemy, killPlayer, null, this);
+        
+        if(mode == 1){
+            phaser.physics.arcade.collide(mSprite2, mEnemy, killPlayer2, null, this);
+        }
     };
     
     
     var killPlayer = function()
+    {
+    };
+    
+    var killPlayer2 = function()
     {
     };
     

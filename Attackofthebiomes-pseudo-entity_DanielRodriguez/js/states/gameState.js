@@ -16,27 +16,48 @@ var GameState = function() {
     var mCoin = null;
     
     //Init for get parameters from menu
-    this.init = function(playerParameters) {
-        return player = playerParameters;
+    this.init = function(playerParameters, playerParameters2, mode) {
+        onePlayer = [playerParameters];
+        twoPlayer = [playerParameters, playerParameters2];
+        modeGame = mode;
     };
     
     this.create = function() {
         enablePhysics();
-        
-        //Create game
-        mWorld = new World(); 
-        mScore = new Score();
-        mPlayer = new Player(mWorld.getPhysicsReference(), player, mScore.getPhysicsReference());
-        mCoin = new Coins(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference(), mScore.getPhysicsReference());
-        mEnemies = new NormalEnemy(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference());
-        mBigEnemy = new bigEnemy(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference());
-        mEnemyWeapon = new EnemyWeapon(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference());
-        mBigEnemieWeapon = new bigEnemyWeapon(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mBigEnemy.getPhysicsReference());
-        mWeapon = new Weapon(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mBigEnemy.getPhysicsReference(), mScore.getPhysicsReference());
-        mLifePotion = new LifePotion(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference(), mScore.getPhysicsReference());
-        mManaPotion = new ManaPotion(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference(), mScore.getPhysicsReference());
-        mSuperHability = new SuperHability(mPlayer.getPhysicsReference(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mBigEnemy.getPhysicsReference(),  mScore.getPhysicsReference());
-        mPlatform = new Platform(mWorld.getPhysicsReference(), mPlayer.getPhysicsReference());
+    
+        if(modeGame == 0)
+        {
+            //Create game
+            mWorld = new World(); 
+            mScore = new Score();
+            mPlayer = new Player(mWorld.getPhysicsReference(), onePlayer, mScore.getPhysicsReference(), modeGame);
+            mCoin = new Coins(mWorld.getPhysicsReference(), mPlayer.getPhysicsReferenceOnePlayer(), mScore.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mEnemies = new NormalEnemy(mWorld.getPhysicsReference(), mPlayer.getPhysicsReferenceOnePlayer(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mBigEnemy = new bigEnemy(mWorld.getPhysicsReference(), mPlayer.getPhysicsReferenceOnePlayer(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mEnemyWeapon = new EnemyWeapon(mPlayer.getPhysicsReferenceOnePlayer(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mBigEnemieWeapon = new bigEnemyWeapon(mPlayer.getPhysicsReferenceOnePlayer(), mWorld.getPhysicsReference(), mBigEnemy.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mWeapon = new Weapon(mPlayer.getPhysicsReferenceOnePlayer(), mPlayer.getPhysicsReferenceTwoPlayer(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mBigEnemy.getPhysicsReference(), mScore.getPhysicsReference(), onePlayer, modeGame);
+            mLifePotion = new LifePotion(mWorld.getPhysicsReference(),mPlayer.getPhysicsReferenceOnePlayer(), mScore.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mManaPotion = new ManaPotion(mWorld.getPhysicsReference(),mPlayer.getPhysicsReferenceOnePlayer(), mScore.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mSuperHability = new SuperHability(mPlayer.getPhysicsReferenceOnePlayer(), mPlayer.getPhysicsReferenceTwoPlayer(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mBigEnemy.getPhysicsReference(), mScore.getPhysicsReference(), modeGame);
+            mPlatform = new Platform(mWorld.getPhysicsReference(), mPlayer.getPhysicsReferenceOnePlayer());
+        }else if(modeGame == 1)
+        {
+             //Create game
+            mWorld = new World(); 
+            mScore = new Score();
+            mPlayer = new Player(mWorld.getPhysicsReference(), twoPlayer, mScore.getPhysicsReference(), modeGame);
+            mCoin = new Coins(mWorld.getPhysicsReference(), mPlayer.getPhysicsReferenceOnePlayer(), mScore.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mEnemies = new NormalEnemy(mWorld.getPhysicsReference(), mPlayer.getPhysicsReferenceOnePlayer(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mBigEnemy = new bigEnemy(mWorld.getPhysicsReference(), mPlayer.getPhysicsReferenceOnePlayer(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mEnemyWeapon = new EnemyWeapon(mPlayer.getPhysicsReferenceOnePlayer(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mBigEnemieWeapon = new bigEnemyWeapon(mPlayer.getPhysicsReferenceOnePlayer(), mWorld.getPhysicsReference(), mBigEnemy.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mWeapon = new Weapon(mPlayer.getPhysicsReferenceOnePlayer(), mPlayer.getPhysicsReferenceTwoPlayer(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mBigEnemy.getPhysicsReference(), mScore.getPhysicsReference(), twoPlayer, modeGame);
+            mLifePotion = new LifePotion(mWorld.getPhysicsReference(),mPlayer.getPhysicsReferenceOnePlayer(), mScore.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mManaPotion = new ManaPotion(mWorld.getPhysicsReference(),mPlayer.getPhysicsReferenceOnePlayer(), mScore.getPhysicsReference(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+            mSuperHability = new SuperHability(mPlayer.getPhysicsReferenceOnePlayer(), mPlayer.getPhysicsReferenceTwoPlayer(), mWorld.getPhysicsReference(), mEnemies.getPhysicsReference(), mBigEnemy.getPhysicsReference(), mScore.getPhysicsReference(), modeGame);
+            mPlatform = new Platform(mWorld.getPhysicsReference(), mPlayer.getPhysicsReferenceOnePlayer(), mPlayer.getPhysicsReferenceTwoPlayer(), modeGame);
+        }
     };
     
     this.update = function() {

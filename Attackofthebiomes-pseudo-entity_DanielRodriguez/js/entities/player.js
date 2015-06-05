@@ -1,10 +1,10 @@
-var Player = function(worldReference, playerParameters, scoreReference) {
+var Player = function(worldReference, playerParameters, scoreReference, modeGame) {
     //References
     var mWorldReference = worldReference;
     var mScoreReference = scoreReference;
     
     //Variables for player
-    var mSprite = null;
+    var mSprite = [];
     //health
     var healthbar = null;
     var health = null;
@@ -18,43 +18,53 @@ var Player = function(worldReference, playerParameters, scoreReference) {
     
     //Cursor
     var mCursor = null;
+    var wasd = {
+            up:phaser.input.keyboard.addKey(Phaser.Keyboard.W),
+            left:phaser.input.keyboard.addKey(Phaser.Keyboard.A),
+            right:phaser.input.keyboard.addKey(Phaser.Keyboard.D)
+    };
     
-    this.getPhysicsReference = function() {
-        return mSprite; 
+    this.getPhysicsReferenceOnePlayer = function() {
+        return mSprite[0]; 
+    };
+    
+    this.getPhysicsReferenceTwoPlayer = function() {
+        return mSprite[1]; 
     };
     
     this.update = function() {
         //Physics player
-        phaser.physics.arcade.collide(mSprite, mWorldReference);
-        mSprite.body.velocity.x = 0;
-        
-        //Health
-        mSprite.healthbar.x = mSprite.x-25;
-        mSprite.healthbar.y = mSprite.y-50;
-        mSprite.healthLabel.x = mSprite.x+25;
-        mSprite.healthLabel.y = mSprite.y-33;
-        mSprite.healthLabel.text = mSprite.health +'/'+ mSprite.maxHealth;
-        mSprite.healthbar.width = (mSprite.health / mSprite.maxHealth) * 100;
-        
-        //Mana
-        mSprite.manabar.x = mSprite.x-25;
-        mSprite.manabar.y = mSprite.y-30;
-        mSprite.manaLabel.x = mSprite.x+25;
-        mSprite.manaLabel.y = mSprite.y-12.5;
-        mSprite.manaLabel.text = mSprite.mana +'/'+ mSprite.maxMana;
-        mSprite.manabar.width = (mSprite.mana / mSprite.maxMana) * 100;
-        
-        if(mSprite.health <= 0)
-        {
-            mSprite.kill();
-            mSprite.healthbar.kill();
-            mSprite.manabar.kill();
-            phaser.world.remove(mSprite.healthLabel);
-            phaser.world.remove(mSprite.manaLabel);
-            var parametersToSend = mScoreReference.score;
-            phaser.state.start('final',true, false, parametersToSend);
+        for(var i=0; i<playerParameters.length; i++){
+            phaser.physics.arcade.collide(mSprite[i], mWorldReference);
+            mSprite[i].body.velocity.x = 0;
+
+            //Health
+            mSprite[i].healthbar.x = mSprite[i].x-25;
+            mSprite[i].healthbar.y = mSprite[i].y-50;
+            mSprite[i].healthLabel.x = mSprite[i].x+25;
+            mSprite[i].healthLabel.y = mSprite[i].y-33;
+            mSprite[i].healthLabel.text = mSprite[i].health +'/'+ mSprite[i].maxHealth;
+            mSprite[i].healthbar.width = (mSprite[i].health / mSprite[i].maxHealth) * 100;
+
+            //Mana
+            mSprite[i].manabar.x = mSprite[i].x-25;
+            mSprite[i].manabar.y = mSprite[i].y-30;
+            mSprite[i].manaLabel.x = mSprite[i].x+25;
+            mSprite[i].manaLabel.y = mSprite[i].y-12.5;
+            mSprite[i].manaLabel.text = mSprite[i].mana +'/'+ mSprite[i].maxMana;
+            mSprite[i].manabar.width = (mSprite[i].mana / mSprite[i].maxMana) * 100;
+
+            if(mSprite[i].health <= 0)
+            {
+                mSprite[i].kill();
+                mSprite[i].healthbar.kill();
+                mSprite[i].manabar.kill();
+                phaser.world.remove(mSprite[i].healthLabel);
+                phaser.world.remove(mSprite[i].manaLabel);
+                var parametersToSend = mScoreReference.score;
+                phaser.state.start('final',true, false, parametersToSend);
+            }
         }
-        
         //Cursors
         if (mCursor.left.isDown)
         {
@@ -71,64 +81,110 @@ var Player = function(worldReference, playerParameters, scoreReference) {
 
         if (mCursor.up.isDown)
         {
-            if(mSprite.body.blocked.down)
+            if(mSprite[0].body.blocked.down)
             {
                 onPressUp();
+            }
+        }
+        
+        if(modeGame == 1)
+        {
+            if (wasd.left.isDown)
+            {
+                onPressLeft2();
+            }
+            else if (wasd.right.isDown)
+            {
+                onPressRight2();
+            }
+            else
+            {
+                onNoDirectionPressed2();
+            }
+
+            if (wasd.up.isDown)
+            {
+                if(mSprite[1].body.blocked.down)
+                {
+                    onPressUp2();
+                }
             }
         }
     };
     
     //Functions for cursors
     var onPressLeft = function() {        
-        mSprite.body.velocity.x = -150;
-        mSprite.animations.play('left');
+        mSprite[0].body.velocity.x = -150;
+        mSprite[0].animations.play('left');
     };
     
     var onPressRight = function() {
-        mSprite.body.velocity.x = 150;
-        mSprite.animations.play('right');
+        mSprite[0].body.velocity.x = 150;
+        mSprite[0].animations.play('right');
     };
     
     var onPressUp = function() {
-        mSprite.body.velocity.y = -200; 
+        mSprite[0].body.velocity.y = -200; 
     };
         
     var onNoDirectionPressed = function() {
-        mSprite.animations.stop();
-        mSprite.frame = 0;         
+        mSprite[0].animations.stop();
+        mSprite[0].frame = 0;         
+    };
+    
+    var onPressLeft2 = function() {        
+        mSprite[1].body.velocity.x = -150;
+        mSprite[1].animations.play('left');
+    };
+    
+    var onPressRight2 = function() {
+        mSprite[1].body.velocity.x = 150;
+        mSprite[1].animations.play('right');
+    };
+    
+    var onPressUp2 = function() {
+        mSprite[1].body.velocity.y = -200; 
+    };
+        
+    var onNoDirectionPressed2 = function() {
+        mSprite[1].animations.stop();
+        mSprite[1].frame = 0;         
     };
     
     //Physics
-    var enablePhysics = function() {        
-        phaser.physics.arcade.enable(mSprite);
-        mSprite.body.gravity.y = 200;
-        mSprite.body.collideWorldBounds = true;    
+    var enablePhysics = function() { 
+         for(var i=0; i<playerParameters.length; i++){
+            phaser.physics.arcade.enable(mSprite[i]);
+            mSprite[i].body.gravity.y = 200;
+            mSprite[i].body.collideWorldBounds = true;    
+         }
     };
     
     (function() {
-        //Player
-        mSprite = phaser.add.sprite(32, phaser.world.height - 150, playerParameters.icon);
-        
-        //Player health
-        mSprite.healthbar = phaser.add.sprite(mSprite.x-25,mSprite.y-50,'healthbarPlayer');
-        mSprite.maxHealth = playerParameters.health;
-        mSprite.health = playerParameters.health;
-        mSprite.healthLabel = phaser.add.text(mSprite.x-20, mSprite.y-40,  mSprite.health +'/'+ mSprite.maxHealth, { font: '16px Geo', fill: '#ffffff' });
-        mSprite.healthLabel.anchor.setTo(0.5, 0.5);
-        
-        //Player mana
-        mSprite.manabar = phaser.add.sprite(mSprite.x-25,mSprite.y-30,'manabarPlayer');
-        mSprite.maxMana = playerParameters.mana;
-        mSprite.mana = playerParameters.mana;
-        mSprite.manaLabel = phaser.add.text(mSprite.x-25, mSprite.y-20,  mSprite.mana +'/'+ mSprite.maxMana, { font: '16px Geo', fill: '#ffffff' });
-        mSprite.manaLabel.anchor.setTo(0.5, 0.5);
-        
-        //Animations
-        mSprite.animations.add('right', [1, 2], 10, true);
-        mSprite.animations.add('left', [3,4], 10, true);
-        
+        for(var i=0; i<playerParameters.length; i++){
+            //Player
+            mSprite[i] = phaser.add.sprite(32, phaser.world.height - 150, playerParameters[i].icon);
+
+            //Player health
+            mSprite[i].healthbar = phaser.add.sprite(mSprite[i].x-25,mSprite[i].y-50,'healthbarPlayer');
+            mSprite[i].maxHealth = playerParameters[i].health;
+            mSprite[i].health = playerParameters[i].health;
+            mSprite[i].healthLabel = phaser.add.text(mSprite[i].x-20, mSprite[i].y-40,  mSprite[i].health +'/'+ mSprite[i].maxHealth, { font: '16px Geo', fill: '#ffffff' });
+            mSprite[i].healthLabel.anchor.setTo(0.5, 0.5);
+
+            //Player mana
+            mSprite[i].manabar = phaser.add.sprite(mSprite[i].x-25,mSprite[i].y-30,'manabarPlayer');
+            mSprite[i].maxMana = playerParameters[i].mana;
+            mSprite[i].mana = playerParameters[i].mana;
+            mSprite[i].manaLabel = phaser.add.text(mSprite[i].x-25, mSprite[i].y-20,  mSprite[i].mana +'/'+ mSprite[i].maxMana, { font: '16px Geo', fill: '#ffffff' });
+            mSprite[i].manaLabel.anchor.setTo(0.5, 0.5);
+
+            //Animations
+            mSprite[i].animations.add('right', [1, 2], 10, true);
+            mSprite[i].animations.add('left', [3,4], 10, true);
+        }
         //Cameras
-        phaser.camera.follow(mSprite);
+        phaser.camera.follow(mSprite[0]);
         
         //Cursor
         mCursor = phaser.input.keyboard.createCursorKeys();

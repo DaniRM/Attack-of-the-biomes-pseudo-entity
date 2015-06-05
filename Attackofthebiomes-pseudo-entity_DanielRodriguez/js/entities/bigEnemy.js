@@ -1,7 +1,8 @@
-var bigEnemy = function(worldReference, playerReference) {
+var bigEnemy = function(worldReference, playerReference, playerReference2, mode) {
     //References
     var mWorldReference = worldReference;
     var mPlayerReference = playerReference;
+    var mPlayerReference2 = playerReference2;
     
     //Big Enemy Variables
     var bigEnemy = null;
@@ -21,10 +22,18 @@ var bigEnemy = function(worldReference, playerReference) {
    
         phaser.physics.arcade.collide(bigEnemy, mWorldReference);
         phaser.physics.arcade.collide(mPlayerReference, bigEnemy, killPlayer, null, this);
+        
+        if(mode == 1){
+            phaser.physics.arcade.collide(mPlayerReference2, bigEnemy, killPlayer2, null, this);
+        }
     };
     
     //Function when big enemy collide with player
     var killPlayer = function()
+    {
+    };
+    
+    var killPlayer2 = function()
     {
     };
     
