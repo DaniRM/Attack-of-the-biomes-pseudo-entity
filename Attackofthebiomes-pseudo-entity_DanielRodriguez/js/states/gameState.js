@@ -22,9 +22,17 @@ var GameState = function() {
         modeGame = mode;
     };
     
+    this.shutdown  = function() {
+        phaser.world.setBounds(0,0,800,600);
+    };
+    
     this.create = function() {
         enablePhysics();
-    
+        
+        music = phaser.add.audio('fondo');
+        music.loop = true;
+        music.play();
+        
         if(modeGame == 0)
         {
             //Create game

@@ -20,6 +20,12 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
     //Cursor
     var mCursor = phaser.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     var mCursor2 = phaser.input.keyboard.addKey(Phaser.Keyboard.Q);
+    var mCursor3 = phaser.input.keyboard.createCursorKeys();
+    var wasd = {
+            up:phaser.input.keyboard.addKey(Phaser.Keyboard.W),
+            left:phaser.input.keyboard.addKey(Phaser.Keyboard.A),
+            right:phaser.input.keyboard.addKey(Phaser.Keyboard.D)
+    };
     
     this.update = function() {
         //Physics
@@ -71,6 +77,9 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
         enemy.health -= 1;
         if(enemy.health <= 0)
          {
+             music.stop();
+             win = phaser.add.audio('win');
+             win.play();
              enemy.kill();
              enemy.healthbar.kill();
              mScoreReference.score+=50;
@@ -84,6 +93,9 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
         enemy.health -= 1;
         if(enemy.health <= 0)
          {
+             music.stop();
+             win = phaser.add.audio('win');
+             win.play();
              enemy.kill();
              enemy.healthbar.kill();
              mScoreReference.score+=50;
@@ -98,6 +110,8 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
          enemy.health -= 1;
          if(enemy.health <= 0)
          {
+             enemydie = phaser.add.audio('enemydie');
+             enemydie.play();
              enemy.kill();
              enemy.healthbar.kill();
              mScoreReference.score+=8;
@@ -109,6 +123,8 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
          enemy.health -= 1;
          if(enemy.health <= 0)
          {
+             enemydie = phaser.add.audio('enemydie');
+             enemydie.play();
              enemy.kill();
              enemy.healthbar.kill();
              mScoreReference.score+=8;
@@ -120,10 +136,18 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
     var createWeapons = function(){ 
         if(phaser.time.now > weaponTime)
         {
-            weapon = mWeaponGroup.create(mPlayerReference.x+40,mPlayerReference.y+20, player[0].weapon);
-                
-            enablePhysics();
-            
+            attack = phaser.add.audio('attack');
+            attack.play();
+            if(mCursor3.left.isDown){   
+                weapon = mWeaponGroup.create(mPlayerReference.x+20,mPlayerReference.y+20, player[0].weapon);
+                phaser.physics.arcade.enable(mWeapon);
+                weapon.body.outOfBoundsKill = true;
+                weapon.body.velocity.x = -700;
+                weapon.checkWorldBounds = true;
+            }else{
+                weapon = mWeaponGroup.create(mPlayerReference.x+20,mPlayerReference.y+20, player[0].weapon);
+                enablePhysics();
+            }
             mWeapon.push(weapon);
             
             weaponTime = phaser.time.now + 200;  
@@ -133,10 +157,18 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
      var createWeapons2 = function(){ 
         if(phaser.time.now > weaponTime)
         {
-            weapon2 = mWeaponGroup2.create(mPlayerReference2.x+40,mPlayerReference2.y+20, player[1].weapon);
-                
-            enablePhysics2();
-            
+            attack = phaser.add.audio('attack');
+            attack.play();
+            if(mCursor3.left.isDown || wasd.left.isDown){   
+                weapon2 = mWeaponGroup2.create(mPlayerReference2.x+20,mPlayerReference2.y+20, player[1].weapon);
+                phaser.physics.arcade.enable(mWeapon2);
+                weapon2.body.outOfBoundsKill = true;
+                weapon2.body.velocity.x = -700;
+                weapon2.checkWorldBounds = true;
+            }else{
+                weapon2 = mWeaponGroup2.create(mPlayerReference2.x+20,mPlayerReference2.y+20, player[1].weapon);
+                enablePhysics2();
+            }
             mWeapon2.push(weapon2);
             
             weaponTime = phaser.time.now + 200;       

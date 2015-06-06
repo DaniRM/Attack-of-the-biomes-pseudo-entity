@@ -63,12 +63,16 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
     
     //Function for when player take potion
     var addPotion = function(player, manapotion){
+         takepotion = phaser.add.audio('takepotion');
+         takepotion.play();
          quantityPotions++;
          manapotion.kill();
          mScoreReference.score+=5;
     };
     
      var addPotion2 = function(player, manapotion){
+         takepotion = phaser.add.audio('takepotion');
+         takepotion.play();
          quantityPotions2++;
          manapotion.kill();
          mScoreReference.score+=5;
@@ -76,8 +80,10 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
     
     //Function for when player want use one mana potion
     var useManaPotion = function(){
-        if(mPlayerReference.mana<=100 && quantityPotions>0)
+        if(mPlayerReference.mana<=mPlayerReference.maxMana && quantityPotions>0)
         {
+             drinkpotion = phaser.add.audio('drinkpotion');
+             drinkpotion.play();
              mPlayerReference.mana+=50;
             
             if(mPlayerReference.mana>mPlayerReference.maxMana)
@@ -91,8 +97,10 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
     };
     
     var useManaPotion2 = function(){
-        if(mPlayerReference2.mana<=100 && quantityPotions2>0)
+        if(mPlayerReference2.mana<=mPlayerReference2.maxMana && quantityPotions2>0)
         {
+             drinkpotion = phaser.add.audio('drinkpotion');
+             drinkpotion.play();
              mPlayerReference2.mana+=50;
             
             if(mPlayerReference2.mana>mPlayerReference2.maxMana)
@@ -132,7 +140,7 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
         mManaPotionButton.fixedToCamera = true;
         
         //Label mana potion
-        labelPotions = phaser.add.text(17, 25, quantityPotions, { font: '30px Geo', fill: '#000000' });
+        labelPotions = phaser.add.text(17, 25, quantityPotions, { font: '25px Charlemagne Std', fill: '#000000' });
         mManaPotionButton.addChild(labelPotions);
         
         if(mode == 1){
@@ -140,7 +148,7 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
             mManaPotionButton2.fixedToCamera = true;
 
             //Label mana potion
-            labelPotions2 = phaser.add.text(17, 25, quantityPotions2, { font: '30px Geo', fill: '#000000' });
+            labelPotions2 = phaser.add.text(17, 25, quantityPotions2, { font: '25px Charlemagne Std', fill: '#000000' });
             mManaPotionButton2.addChild(labelPotions2);
         }
         

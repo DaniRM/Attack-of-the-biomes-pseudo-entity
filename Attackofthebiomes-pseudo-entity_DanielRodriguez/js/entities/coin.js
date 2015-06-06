@@ -28,11 +28,15 @@ var Coins = function(worldReference, playerReference, scoreReference, playerRefe
     };
     
     var upScore = function(player, coin){
+        takecoin = phaser.add.audio('takecoin');
+        takecoin.play();
         mScoreReference.score+=5;
         coin.kill();
     };
     
     var upScore2 = function(player, coin){
+        takecoin = phaser.add.audio('takecoin');
+        takecoin.play();
         mScoreReference.score+=5;
         coin.kill();
     };

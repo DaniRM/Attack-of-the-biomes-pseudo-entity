@@ -63,12 +63,16 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
 
     //Function for when player take potion
     var addPotion = function(player, lifepotion){
+         takepotion = phaser.add.audio('takepotion');
+         takepotion.play();
          quantityPotions++;
          lifepotion.kill();
          mScoreReference.score+=5;
     };
     
     var addPotion2 = function(player, lifepotion){
+         takepotion = phaser.add.audio('takepotion');
+         takepotion.play();
          quantityPotions2++;
          lifepotion.kill();
          mScoreReference.score+=5;
@@ -76,8 +80,10 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
     
     //Function for when player want use one health potion
     var useHealthPotion = function(){
-        if(mPlayerReference.health<=100 && quantityPotions>0)
+        if(mPlayerReference.health<=mPlayerReference.maxHealth && quantityPotions>0)
         {
+             drinkpotion = phaser.add.audio('drinkpotion');
+             drinkpotion.play();
              mPlayerReference.health+=50;
             
             if(mPlayerReference.health>mPlayerReference.maxHealth)
@@ -91,8 +97,10 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
     };
     
     var useHealthPotion2 = function(){
-        if(mPlayerReference2.health<=100 && quantityPotions2>0)
+        if(mPlayerReference2.health<=mPlayerReference2.maxHealth && quantityPotions2>0)
         {
+             drinkpotion = phaser.add.audio('drinkpotion');
+             drinkpotion.play();
              mPlayerReference2.health+=50;
             
             if(mPlayerReference2.health>mPlayerReference2.maxHealth)
@@ -132,7 +140,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
         mLifePotionButton.fixedToCamera = true;
         
         //Label life potion
-        labelPotions = phaser.add.text(17, 25, quantityPotions, { font: '30px Geo', fill: '#000000' });
+        labelPotions = phaser.add.text(17, 25, quantityPotions, { font: '25px Charlemagne Std', fill: '#000000' });
         mLifePotionButton.addChild(labelPotions);
         
         if(mode == 1){
@@ -141,7 +149,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
             mLifePotionButton2.fixedToCamera = true;
 
             //Label life potion
-            labelPotions2 = phaser.add.text(17, 25, quantityPotions2, { font: '30px Geo', fill: '#000000' });
+            labelPotions2 = phaser.add.text(17, 25, quantityPotions2, { font: '25px Charlemagne Std', fill: '#000000' });
             mLifePotionButton2.addChild(labelPotions2);
         }
         

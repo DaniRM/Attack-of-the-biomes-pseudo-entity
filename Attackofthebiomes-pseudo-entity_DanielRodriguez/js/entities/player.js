@@ -53,16 +53,53 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
             mSprite[i].manaLabel.y = mSprite[i].y-12.5;
             mSprite[i].manaLabel.text = mSprite[i].mana +'/'+ mSprite[i].maxMana;
             mSprite[i].manabar.width = (mSprite[i].mana / mSprite[i].maxMana) * 100;
-
-            if(mSprite[i].health <= 0)
+            
+            if(modeGame == 0)
             {
-                mSprite[i].kill();
-                mSprite[i].healthbar.kill();
-                mSprite[i].manabar.kill();
-                phaser.world.remove(mSprite[i].healthLabel);
-                phaser.world.remove(mSprite[i].manaLabel);
-                var parametersToSend = mScoreReference.score;
-                phaser.state.start('final',true, false, parametersToSend);
+                if(mSprite[i].health <= 0)
+                {
+                    music.stop();
+                    playerdie = phaser.add.audio('playerdie');
+                    playerdie.play();
+                    mSprite[i].kill();
+                    mSprite[i].healthbar.kill();
+                    mSprite[i].manabar.kill();
+                    phaser.world.remove(mSprite[i].healthLabel);
+                    phaser.world.remove(mSprite[i].manaLabel);
+                    var parametersToSend = mScoreReference.score;
+                    phaser.state.start('final',true, false, parametersToSend);
+                }
+            }
+            
+            if(modeGame == 1)
+            {
+                if(mSprite[0].health <= 0)
+                {
+                    mSprite[0].kill();
+                    mSprite[0].healthbar.kill();
+                    mSprite[0].manabar.kill();
+                    phaser.world.remove(mSprite[0].healthLabel);
+                    phaser.world.remove(mSprite[0].manaLabel);
+                    phaser.camera.follow(mSprite[1]);
+                }
+                
+                if(mSprite[1].health <= 0)
+                {
+                    mSprite[1].kill();
+                    mSprite[1].healthbar.kill();
+                    mSprite[1].manabar.kill();
+                    phaser.world.remove(mSprite[1].healthLabel);
+                    phaser.world.remove(mSprite[1].manaLabel);
+                }
+                
+                if(mSprite[0].health <= 0 && mSprite[1].health <= 0)
+                {
+                    music.stop();
+                    playerdie = phaser.add.audio('playerdie');
+                    playerdie.play();
+                    var parametersToSend = mScoreReference.score;
+                    phaser.state.start('final',true, false, parametersToSend);
+                }
             }
         }
         //Cursors
@@ -124,7 +161,10 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
     };
     
     var onPressUp = function() {
+        jumpSound = phaser.add.audio('jump');
+        jumpSound.play();
         mSprite[0].body.velocity.y = -200; 
+        
     };
         
     var onNoDirectionPressed = function() {
@@ -143,6 +183,8 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
     };
     
     var onPressUp2 = function() {
+        jumpSound = phaser.add.audio('jump');
+        jumpSound.play();
         mSprite[1].body.velocity.y = -200; 
     };
         
@@ -169,14 +211,14 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
             mSprite[i].healthbar = phaser.add.sprite(mSprite[i].x-25,mSprite[i].y-50,'healthbarPlayer');
             mSprite[i].maxHealth = playerParameters[i].health;
             mSprite[i].health = playerParameters[i].health;
-            mSprite[i].healthLabel = phaser.add.text(mSprite[i].x-20, mSprite[i].y-40,  mSprite[i].health +'/'+ mSprite[i].maxHealth, { font: '16px Geo', fill: '#ffffff' });
+            mSprite[i].healthLabel = phaser.add.text(mSprite[i].x-20, mSprite[i].y-40,  mSprite[i].health +'/'+ mSprite[i].maxHealth, { font: '12px Charlemagne Std', fill: '#ffffff' });
             mSprite[i].healthLabel.anchor.setTo(0.5, 0.5);
 
             //Player mana
             mSprite[i].manabar = phaser.add.sprite(mSprite[i].x-25,mSprite[i].y-30,'manabarPlayer');
             mSprite[i].maxMana = playerParameters[i].mana;
             mSprite[i].mana = playerParameters[i].mana;
-            mSprite[i].manaLabel = phaser.add.text(mSprite[i].x-25, mSprite[i].y-20,  mSprite[i].mana +'/'+ mSprite[i].maxMana, { font: '16px Geo', fill: '#ffffff' });
+            mSprite[i].manaLabel = phaser.add.text(mSprite[i].x-25, mSprite[i].y-20,  mSprite[i].mana +'/'+ mSprite[i].maxMana, { font: '12px Charlemagne Std', fill: '#ffffff' });
             mSprite[i].manaLabel.anchor.setTo(0.5, 0.5);
 
             //Animations

@@ -46,8 +46,10 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
         //Cursor
         if(mCursor.isDown)
         {
-            if(playerReference.mana>40)
+            if(playerReference.mana>60)
             {
+                hability = phaser.add.audio('hability');
+                hability.play();
                 createWeapons();
                 playerReference.mana-=60;
             }
@@ -56,9 +58,10 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
         if(mode == 1){
             if(mCursor2.isDown)
             {
-                console.log('WW');
-                if(playerReference2.mana>40)
+                if(playerReference2.mana>60)
                 {
+                    hability = phaser.add.audio('hability');
+                    hability.play();
                     createWeapons2();
                     playerReference2.mana-=60;
                 }
@@ -77,25 +80,35 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
     
     //Function for kill weapon and big enemy when it hasn't life
     var bigEnemyDie = function(weapon, enemy){
-        enemy.health -= 8;
+        enemy.health -= 1;
         if(enemy.health <= 0)
          {
+             music.stop();
+             win = phaser.add.audio('win');
+             win.play();
              enemy.kill();
              enemy.healthbar.kill();
              mScoreReference.score+=50;
+             var parametersToSend = mScoreReference.score;
+             phaser.state.start('final',true, false, parametersToSend);
          }
-         weapon.kill();
+         weapon.kill(); 
     };
     
     var bigEnemyDie2 = function(weapon2, enemy){
-        enemy.health -= 8;
+        enemy.health -= 1;
         if(enemy.health <= 0)
          {
+             music.stop();
+             win = phaser.add.audio('win');
+             win.play();
              enemy.kill();
              enemy.healthbar.kill();
              mScoreReference.score+=50;
+             var parametersToSend = mScoreReference.score;
+             phaser.state.start('final',true, false, parametersToSend);
          }
-         weapon2.kill();
+         weapon2.kill(); 
     };
     
     //Function for kill weapon and big enemy when it hasn't life
