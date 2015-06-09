@@ -33,6 +33,7 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
         phaser.physics.arcade.overlap(mWeapon, mBigEnemyReference, bigEnemyDie, null, this);
         phaser.physics.arcade.collide(mWeaponGroup, mWorldReference, weaponDie, null, this);
         
+        //Physics for two player mode
         if(mode == 1){
             mWeaponGroup2.forEachAlive(function(weapon2){
                 mEnemyReference.forEachAlive(function(enemy){
@@ -43,7 +44,7 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
             phaser.physics.arcade.collide(mWeaponGroup2, mWorldReference, weaponDie2, null, this);
         }
         
-        //Cursor
+        //Cursor for do super hability in one player mode
         if(mCursor.isDown)
         {
             if(playerReference.mana>60)
@@ -55,6 +56,7 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
             }
         }
         
+        //Cursor for do super hability in two player mode
         if(mode == 1){
             if(mCursor2.isDown)
             {
@@ -95,6 +97,7 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
          weapon.kill(); 
     };
     
+    //Function for kill weapon and big enemy when it hasn't life in two players mode
     var bigEnemyDie2 = function(weapon2, enemy){
         enemy.health -= 1;
         if(enemy.health <= 0)
@@ -111,7 +114,7 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
          weapon2.kill(); 
     };
     
-    //Function for kill weapon and big enemy when it hasn't life
+    //Function for kill weapon and enemy when it hasn't life
     var enemyDie = function(weapon, enemy){
          enemy.health -= 8;
          if(enemy.health <= 0)
@@ -123,7 +126,8 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
          weapon.kill();
     };
     
-     var enemyDie2 = function(weapon2, enemy){
+    //Function for kill weapon and enemy when it hasn't life in two players mode
+    var enemyDie2 = function(weapon2, enemy){
          enemy.health -= 8;
          if(enemy.health <= 0)
          {
@@ -151,6 +155,7 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
         }      
     };
     
+    //Function for create weapons in two players mode
     var createWeapons2 = function(){ 
         if(phaser.time.now > weaponTime)
         {
@@ -168,6 +173,7 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
         }      
     };
     
+    //Physics for the super hability in one player mode
     var enablePhysics = function() {  
         phaser.physics.arcade.enable(mWeapon);
         weapon.body.outOfBoundsKill = true;
@@ -178,7 +184,8 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
         weaponRotation += 45;
     };
     
-     var enablePhysics2 = function() {  
+    //Physics for the super hability in two players mode
+    var enablePhysics2 = function() {  
         phaser.physics.arcade.enable(mWeapon2);
         weapon2.body.outOfBoundsKill = true;
         weapon2.body.velocity.x = 700;
@@ -188,10 +195,12 @@ var SuperHability = function(playerReference, playerReference2, worldReference, 
         weaponRotation2 += 45;
     };
     
+    //Constructor
     (function() {
        mWeaponGroup = phaser.add.group();
        mWeaponGroup.enableBody = true;
        
+       //if two players mode is selected
        if(mode == 1)
        {
            mWeaponGroup2 = phaser.add.group();

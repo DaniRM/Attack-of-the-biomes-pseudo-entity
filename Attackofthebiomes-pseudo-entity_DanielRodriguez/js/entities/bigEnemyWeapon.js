@@ -33,6 +33,7 @@ var bigEnemyWeapon = function(playerReference, worldReference, bigEnemyReference
         enemyWeapon.kill();
     };
     
+     //Function for when weapon collide with second player
     var playerDie2 = function(enemyWeapon){ 
         mPlayerReference2.health -= 3;
         enemyWeapon.kill();
@@ -43,7 +44,7 @@ var bigEnemyWeapon = function(playerReference, worldReference, bigEnemyReference
         enemyWeapon.kill();
     };
     
-    //Function for create big enemy weapons
+    //Function for create big enemy weapons for first player
     var createWeapons = function(){ 
             
         if(phaser.time.now > weaponTime)
@@ -63,6 +64,7 @@ var bigEnemyWeapon = function(playerReference, worldReference, bigEnemyReference
         }   
     };
     
+    //Function for create big enemy weapons for second player
     var createWeapons2 = function(){ 
             
         if(phaser.time.now > weaponTime)

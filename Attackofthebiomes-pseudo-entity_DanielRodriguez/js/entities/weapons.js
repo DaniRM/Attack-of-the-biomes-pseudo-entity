@@ -37,6 +37,7 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
         phaser.physics.arcade.overlap(mWeapon, mBigEnemyReference, bigEnemyDie, null, this);
         phaser.physics.arcade.collide(mWeaponGroup, mWorldReference, weaponDie, null, this);
         
+        //if two players mode is selected
         if(mode == 1)
         {
             mWeaponGroup2.forEachAlive(function(weapon2){
@@ -47,13 +48,14 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
             phaser.physics.arcade.overlap(mWeapon2, mBigEnemyReference, bigEnemyDie2, null, this);
             phaser.physics.arcade.collide(mWeaponGroup2, mWorldReference, weaponDie2, null, this);
         }
+        
         //Cursor
         if(mCursor.isDown)
         {
             createWeapons();
         }
         
-          
+        //if two players is selected 
         if(mode == 1)
         {
             if(mCursor2.isDown)
@@ -68,6 +70,7 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
         weapon.kill();  
     };
     
+    //Function for kill weapon when it collide with the world in the two players mode
     var weaponDie2 = function(weapon2){
         weapon2.kill();  
     };
@@ -89,6 +92,7 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
          weapon.kill(); 
     };
     
+    //Function for kill weapon and big enemy when it hasn't life in two players mode
     var bigEnemyDie2 = function(weapon2, enemy){
         enemy.health -= 1;
         if(enemy.health <= 0)
@@ -105,7 +109,7 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
          weapon2.kill(); 
     };
     
-    //Function for kill weapon and big enemy when it hasn't life
+    //Function for kill weapon and enemy when it hasn't life
     var enemyDie = function(weapon, enemy){
          enemy.health -= 1;
          if(enemy.health <= 0)
@@ -117,8 +121,9 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
              mScoreReference.score+=8;
          }
          weapon.kill();
-    };
+     };
     
+    //Function for kill weapon and enemy when it hasn't life in two players mode
      var enemyDie2 = function(weapon2, enemy){
          enemy.health -= 1;
          if(enemy.health <= 0)
@@ -154,6 +159,7 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
         }      
     };
     
+    //Function for create weapons in two players mode
      var createWeapons2 = function(){ 
         if(phaser.time.now > weaponTime)
         {
@@ -175,6 +181,7 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
         }      
     };
     
+    //Physics for the weapons in two players mode
     var enablePhysics = function() {  
         phaser.physics.arcade.enable(mWeapon);
         weapon.body.outOfBoundsKill = true;
@@ -182,17 +189,21 @@ var Weapon = function(playerReference, playerReference2, worldReference, enemyRe
         weapon.checkWorldBounds = true;
     };
     
-     var enablePhysics2 = function() {  
+    
+    //Physics for the weapons in one player mode
+    var enablePhysics2 = function() {  
         phaser.physics.arcade.enable(mWeapon2);
         weapon2.body.outOfBoundsKill = true;
         weapon2.body.velocity.x = 700;
         weapon2.checkWorldBounds = true;
     };
-     
+    
+    //Constructor
     (function() {
        mWeaponGroup = phaser.add.group();
        mWeaponGroup.enableBody = true;
        
+       //if two player mode is selected
        if(mode == 1)
        {
            mWeaponGroup2 = phaser.add.group();

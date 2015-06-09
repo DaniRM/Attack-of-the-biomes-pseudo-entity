@@ -1,4 +1,4 @@
-//State Menu
+//State Final
 var FinalState = function() {  
     this.init = function(scoreParameters) {
         return score = scoreParameters;

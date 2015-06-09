@@ -33,6 +33,7 @@ var bigEnemy = function(worldReference, playerReference, playerReference2, mode)
     {
     };
     
+    //Function when big enemy collide with second player
     var killPlayer2 = function()
     {
     };

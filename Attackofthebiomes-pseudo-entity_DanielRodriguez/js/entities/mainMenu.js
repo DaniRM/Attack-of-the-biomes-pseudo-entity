@@ -2,11 +2,11 @@ var MainMenu = function() {
     //Background
     var addBackground = function() {
         var backgroundImage = phaser.add.image(0, 0, 'menuBackground');  
-         //boton sonido
         muteButton = phaser.add.button(20, 20, 'mute', toggleSound, this);
         muteButton.input.useHandCursor = true;
     };
     
+    //Sounds
     var toggleSound = function(){
         phaser.sound.mute = !phaser.sound.mute;
         
@@ -24,6 +24,7 @@ var MainMenu = function() {
 		phaser.add.tween(nameLabel).to({y: 80}, 1000).easing(Phaser.Easing.Bounce.Out).start();
     };
     
+    //Selection Mode
     var selectMode = function(){
         addBackground();
         createIntroText();
@@ -33,7 +34,7 @@ var MainMenu = function() {
     };
     
     
-    //Mode selection
+    //Player selection in one player mode selected
     var onePlayer = function(){
         addBackground(); 
         var nameLabel = phaser.add.text(phaser.world.centerX, -50, 'Select player', { font: '40px Charlemagne Std', fill: '#ffffff' });
@@ -45,6 +46,7 @@ var MainMenu = function() {
         phaser.add.button(560, 220, 'buttonWarrior', warriorSelected1, this); 
     };
     
+    //Player selection in two player mode selected
     var twoPlayer = function(){
         addBackground(); 
         var nameLabel = phaser.add.text(phaser.world.centerX, -50, 'Select player 1', { font: '40px Charlemagne Std', fill: '#ffffff' });
@@ -56,14 +58,15 @@ var MainMenu = function() {
         phaser.add.button(560, 220, 'buttonWarrior', warriorSelected, this); 
     };
     
+    //Controls selection
     var controls = function(){
         addBackground(); 
         phaser.add.sprite(50, 20, 'controls');
         phaser.add.button(phaser.world.centerX - 95, 515, 'goback', selectMode, this); 
     };
     
-    //Player selection
-     var aldinSelected1 = function(){
+    //Players in one player mode
+    var aldinSelected1 = function(){
         parametersToSend = {
             'health': 110,
             'mana': 80,
@@ -97,7 +100,7 @@ var MainMenu = function() {
         phaser.state.start('game',true, false, parametersToSend, null, mode);
     };
     
-     var warriorSelected1 = function(){
+    var warriorSelected1 = function(){
         parametersToSend = {
             'health': 100,
             'mana': 100,
@@ -109,6 +112,7 @@ var MainMenu = function() {
     };
     
     
+    //First player selection in two players mode
     var aldinSelected = function(){
         parametersToSend = {
             'health': 110,
@@ -149,6 +153,7 @@ var MainMenu = function() {
         onePlayer2();
     };
     
+    //Second player selection in two players mode
     var onePlayer2 = function(){
         addBackground(); 
         var nameLabel = phaser.add.text(phaser.world.centerX, -50, 'Select player 2', { font: '40px Charlemagne Std', fill: '#ffffff' });
@@ -160,7 +165,7 @@ var MainMenu = function() {
         phaser.add.button(560, 220, 'buttonWarrior', warriorSelected2, this); 
     };
     
-    //Player selection
+    //Second player selection in two players mode
     var aldinSelected2 = function(){
         parametersToSend2 = {
             'health': 110,
@@ -205,6 +210,7 @@ var MainMenu = function() {
         phaser.state.start('game',true, false, parametersToSend, parametersToSend2, mode);
     };
     
+    //Constructor
     (function() {
         selectMode();
     })();

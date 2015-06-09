@@ -26,7 +26,7 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
     var mCursor2 = phaser.input.keyboard.addKey(Phaser.Keyboard.R);
     
     this.update = function() {
-        //Update label
+        //Update labels
         labelPotions.text = quantityPotions;
         if(mode == 1){
             labelPotions2.text = quantityPotions2;
@@ -41,6 +41,7 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
             }
         }
         
+        //Cursor for second player
         if(mode == 1){
             if(mCursor2.isDown)
             {
@@ -55,6 +56,7 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
         phaser.physics.arcade.collide(mManaPotionGroup, mWorldReference);
         phaser.physics.arcade.overlap(mPlayerReference, mManaPotion, addPotion, null, this);
         
+        //Physics for add potion in two players mode
         if(mode == 1)
         {
             phaser.physics.arcade.overlap(mPlayerReference2, mManaPotion, addPotion2, null, this);
@@ -70,7 +72,8 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
          mScoreReference.score+=5;
     };
     
-     var addPotion2 = function(player, manapotion){
+    //Function for when second player take potion
+    var addPotion2 = function(player, manapotion){
          takepotion = phaser.add.audio('takepotion');
          takepotion.play();
          quantityPotions2++;
@@ -96,6 +99,7 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
         }  
     };
     
+    //Function for when second player want use one mana potion
     var useManaPotion2 = function(){
         if(mPlayerReference2.mana<=mPlayerReference2.maxMana && quantityPotions2>0)
         {
@@ -143,6 +147,7 @@ var ManaPotion = function(worldReference, playerReference, scoreReference, playe
         labelPotions = phaser.add.text(17, 25, quantityPotions, { font: '25px Charlemagne Std', fill: '#000000' });
         mManaPotionButton.addChild(labelPotions);
         
+        //if two players mode is selected
         if(mode == 1){
             mManaPotionButton2 = phaser.add.button(250, 20, 'manapotion');
             mManaPotionButton2.fixedToCamera = true;

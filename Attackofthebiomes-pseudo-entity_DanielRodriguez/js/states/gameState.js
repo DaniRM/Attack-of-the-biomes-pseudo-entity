@@ -1,3 +1,4 @@
+//State for create all the game (World, Player, Weapons, Coins...)
 var GameState = function() {
     
     //Variables for create game
@@ -22,17 +23,21 @@ var GameState = function() {
         modeGame = mode;
     };
     
+    //Function for update the window size
     this.shutdown  = function() {
         phaser.world.setBounds(0,0,800,600);
     };
     
     this.create = function() {
+        //Physics
         enablePhysics();
         
+        //Music for the game
         music = phaser.add.audio('fondo');
         music.loop = true;
         music.play();
         
+        //If one player is selected else if two players is selected
         if(modeGame == 0)
         {
             //Create game

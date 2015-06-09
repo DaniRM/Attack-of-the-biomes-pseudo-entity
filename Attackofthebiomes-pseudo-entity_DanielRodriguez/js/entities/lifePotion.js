@@ -26,7 +26,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
     var mCursor2 = phaser.input.keyboard.addKey(Phaser.Keyboard.F);
     
     this.update = function() {
-        //Update label
+        //Update labels
         labelPotions.text = quantityPotions;
         
         if(mode == 1){
@@ -37,6 +37,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
         phaser.physics.arcade.collide(mLifePotionGroup, mWorldReference);
         phaser.physics.arcade.overlap(mPlayerReference, mLifePotion, addPotion, null, this);
         
+        //Physics for two player mode selected
         if(mode == 1){
             phaser.physics.arcade.overlap(mPlayerReference2, mLifePotion, addPotion2, null, this);
         }
@@ -50,6 +51,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
             }
         }
         
+        //Cursor for second player
         if(mode == 1){
             if(mCursor2.isDown)
             {
@@ -70,6 +72,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
          mScoreReference.score+=5;
     };
     
+    //Function for when second player take potion
     var addPotion2 = function(player, lifepotion){
          takepotion = phaser.add.audio('takepotion');
          takepotion.play();
@@ -96,6 +99,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
         }  
     };
     
+    //Function for when second player want use one health potion
     var useHealthPotion2 = function(){
         if(mPlayerReference2.health<=mPlayerReference2.maxHealth && quantityPotions2>0)
         {
@@ -131,6 +135,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
          lifepotion.body.gravity.y = 300;
     };
     
+    //Constructor
     (function() {
         //Life Potion
         mLifePotionGroup = phaser.add.group();
@@ -143,6 +148,7 @@ var LifePotion = function(worldReference, playerReference, scoreReference, playe
         labelPotions = phaser.add.text(17, 25, quantityPotions, { font: '25px Charlemagne Std', fill: '#000000' });
         mLifePotionButton.addChild(labelPotions);
         
+        //If two players mode is selected
         if(mode == 1){
             //Button life potion
             mLifePotionButton2 = phaser.add.button(190, 20, 'lifepotion');

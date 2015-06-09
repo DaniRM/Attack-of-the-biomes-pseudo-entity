@@ -1,3 +1,4 @@
+//Class Score
 var Score = function() {
     var mText = null;
     var mScore = null;

@@ -22,11 +22,13 @@ var Coins = function(worldReference, playerReference, scoreReference, playerRefe
         phaser.physics.arcade.collide(mCoinGroup, mWorldReference);
         phaser.physics.arcade.overlap(mPlayerReference, mCoin, upScore, null, this);
         
+        //Physics for when two players mode is selected
         if(mode == 1){
             phaser.physics.arcade.overlap(mPlayerReference2, mCoin, upScore2, null, this);
         }
     };
     
+    //Function fow up score when player take coin
     var upScore = function(player, coin){
         takecoin = phaser.add.audio('takecoin');
         takecoin.play();
@@ -34,12 +36,14 @@ var Coins = function(worldReference, playerReference, scoreReference, playerRefe
         coin.kill();
     };
     
+    //Function for up score when player two take coin
     var upScore2 = function(player, coin){
         takecoin = phaser.add.audio('takecoin');
         takecoin.play();
         mScoreReference.score+=5;
         coin.kill();
     };
+    
     //Function for create enemies
     var createCoins = function(){  
          for (var i = 0; i < totalCoins; i++) {
@@ -62,6 +66,7 @@ var Coins = function(worldReference, playerReference, scoreReference, playerRefe
         coin.anchor.setTo(0.5, 1);
     };
     
+    //Constructor
     (function() {
         //Enemy
        mCoinGroup = phaser.add.group();

@@ -34,6 +34,7 @@ var EnemyWeapon = function(playerReference, worldReference, enemyReference, play
         enemyWeapon.kill();
     };
     
+    //Function for when weapon overlap with player two
     var playerDie2 = function(enemyWeapon){ 
         mPlayerReference2.health -= 3;
         enemyWeapon.kill();
@@ -63,6 +64,7 @@ var EnemyWeapon = function(playerReference, worldReference, enemyReference, play
         }   
     };
     
+    //Function for create weapons in two players mode selected
     var createWeapons2 = function(enemy){ 
             
         if(phaser.time.now > weaponTime)
@@ -87,7 +89,8 @@ var EnemyWeapon = function(playerReference, worldReference, enemyReference, play
         enemyWeapon.body.outOfBoundsKill = true;
         enemyWeapon.checkWorldBounds = true;
     };
-     
+    
+    //Constructor
     (function() {
        mEnemyWeaponsGroup = phaser.add.group();
        mEnemyWeaponsGroup.enableBody = true;

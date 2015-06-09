@@ -1,4 +1,4 @@
-//State Menu
+//Load State
 var LoadState = function() {    
     this.preload = function() {    
         var loadingLabel = phaser.add.text(phaser.world.centerX, 150, 'loading...', { font: '30px Geo', fill: '#ffffff' });

@@ -17,6 +17,7 @@ var Platform = function(worldReference, playerReference, playerReference2, mode)
         phaser.physics.arcade.collide(mPlatformGroup, mWorldReference);
         phaser.physics.arcade.overlap(mPlayerReference, mPlatform, playerUP, null, this);
         
+        //if the two players mode is selected
         if(mode == 1){
             phaser.physics.arcade.overlap(mPlayerReference2, mPlatform, playerUP2, null, this);
         }
@@ -26,6 +27,8 @@ var Platform = function(worldReference, playerReference, playerReference2, mode)
     var playerUP = function(player, platform){
         mPlayerReference.body.velocity.y = -350; 
     };
+    
+    //Function for when the second player take potion
     var playerUP2 = function(player, platform){
         mPlayerReference2.body.velocity.y = -350; 
     };
@@ -48,6 +51,7 @@ var Platform = function(worldReference, playerReference, playerReference2, mode)
          platform.scale.setTo(0.5,0.5);
     };
     
+    //Constructor
     (function() {
         //Mana Potion
         mPlatformGroup = phaser.add.group();

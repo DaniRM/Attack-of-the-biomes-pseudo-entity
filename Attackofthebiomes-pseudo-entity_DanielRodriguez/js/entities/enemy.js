@@ -26,6 +26,7 @@ var NormalEnemy = function(worldReference, playerReference, playerReference2, mo
         phaser.physics.arcade.collide(mEnemyGroup, mWorldReference);
         phaser.physics.arcade.collide(mSprite, mEnemy, killPlayer, null, this);
         
+        //Physics for when two players mode is selected
         if(mode == 1){
             phaser.physics.arcade.collide(mSprite2, mEnemy, killPlayer2, null, this);
         }
@@ -69,7 +70,7 @@ var NormalEnemy = function(worldReference, playerReference, playerReference2, mo
     };
     
     (function() {
-        //Enemy
+    //Enemy
        mEnemyGroup = phaser.add.group();
        mEnemyGroup.enableBody = true;
         

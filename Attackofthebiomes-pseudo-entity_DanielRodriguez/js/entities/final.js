@@ -11,15 +11,18 @@ var Final = function(score) {
 		phaser.add.tween(nameLabel).to({y: 80}, 1000).easing(Phaser.Easing.Bounce.Out).start();
     };
     
+    //Score text
     var finalText = function() {
         var scoreLabel = phaser.add.text(phaser.world.centerX, 300, 'Score: '+score, { font: '30px Charlemagne Std', fill: '#ffffff' });
 		scoreLabel.anchor.setTo(0.5, 0.5);
     };
     
+    //Return button
     var returnButton = function(){
         phaser.add.button(phaser.world.centerX - 95, 450, 'goback', returnMenu, this); 
     };
     
+    //Function for return menu
     var returnMenu = function(){
         phaser.state.start('load');  
     };

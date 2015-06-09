@@ -1,3 +1,4 @@
+//Class Player
 var Player = function(worldReference, playerParameters, scoreReference, modeGame) {
     //References
     var mWorldReference = worldReference;
@@ -24,16 +25,17 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
             right:phaser.input.keyboard.addKey(Phaser.Keyboard.D)
     };
     
+    //Reference for first player
     this.getPhysicsReferenceOnePlayer = function() {
         return mSprite[0]; 
     };
     
+    //Reference for the second player
     this.getPhysicsReferenceTwoPlayer = function() {
         return mSprite[1]; 
     };
     
     this.update = function() {
-        //Physics player
         for(var i=0; i<playerParameters.length; i++){
             phaser.physics.arcade.collide(mSprite[i], mWorldReference);
             mSprite[i].body.velocity.x = 0;
@@ -54,6 +56,7 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
             mSprite[i].manaLabel.text = mSprite[i].mana +'/'+ mSprite[i].maxMana;
             mSprite[i].manabar.width = (mSprite[i].mana / mSprite[i].maxMana) * 100;
             
+            //if player die in one player mode
             if(modeGame == 0)
             {
                 if(mSprite[i].health <= 0)
@@ -71,6 +74,7 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
                 }
             }
             
+            //if one player die in two players mode
             if(modeGame == 1)
             {
                 if(mSprite[0].health <= 0)
@@ -102,6 +106,7 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
                 }
             }
         }
+        
         //Cursors
         if (mCursor.left.isDown)
         {
@@ -124,6 +129,7 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
             }
         }
         
+        //Cursors for second player
         if(modeGame == 1)
         {
             if (wasd.left.isDown)
@@ -149,7 +155,7 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
         }
     };
     
-    //Functions for cursors
+    //Functions for cursors in one player mode
     var onPressLeft = function() {        
         mSprite[0].body.velocity.x = -150;
         mSprite[0].animations.play('left');
@@ -172,6 +178,7 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
         mSprite[0].frame = 0;         
     };
     
+    //Functions for cursors in two players mode
     var onPressLeft2 = function() {        
         mSprite[1].body.velocity.x = -150;
         mSprite[1].animations.play('left');
@@ -193,7 +200,7 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
         mSprite[1].frame = 0;         
     };
     
-    //Physics
+    //Physics for the players
     var enablePhysics = function() { 
          for(var i=0; i<playerParameters.length; i++){
             phaser.physics.arcade.enable(mSprite[i]);
@@ -225,7 +232,8 @@ var Player = function(worldReference, playerParameters, scoreReference, modeGame
             mSprite[i].animations.add('right', [1, 2], 10, true);
             mSprite[i].animations.add('left', [3,4], 10, true);
         }
-        //Cameras
+        
+        //Camera
         phaser.camera.follow(mSprite[0]);
         
         //Cursor
